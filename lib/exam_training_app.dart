@@ -8,8 +8,8 @@ class ExamTrainingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ExamTrainingTheme.light(),
-      home: HomeScreen(),
+      theme: ExamTrainingTheme.lightTheme,
+      home: const HomeScreen(),
     );
   }
 }

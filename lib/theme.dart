@@ -2,106 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExamTrainingTheme {
-  static TextTheme lightTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black,
+  static Color lightThemeTextColor = Colors.black;
+  // static Color darkThemeTextColor = Colors.white;
+
+  static TextTheme lightThemeTextTheme = TextTheme(
+    headline1: GoogleFonts.roboto(
+      fontSize: 24.0,
+      color: lightThemeTextColor,
     ),
-    headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
-    headline2: GoogleFonts.openSans(
-      fontSize: 21.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.black,
-    ),
-    headline3: GoogleFonts.openSans(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-    headline6: GoogleFonts.openSans(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
+    subtitle1: GoogleFonts.roboto(
+      fontSize: 18.0,
+      color: lightThemeTextColor,
     ),
   );
 
-  static TextTheme darkTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
+  static Color lightThemeBgColor = Colors.white;
+  // static Color darkThemeBgColor = Colors.black;
+
+  static const Color bgColor = Color(0xFFF5F5F5);
+
+  static Color lightThemeIconColor = Colors.black;
+
+  static Color selectedIconThemeColor = Colors.green;
+  static Color unselectedIconThemeColor = Colors.black;
+
+  static Color cardColor = Colors.white;
+
+  static ThemeData lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+      backgroundColor: lightThemeBgColor,
+      titleTextStyle: lightThemeTextTheme.headline1,
     ),
-    headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
+    scaffoldBackgroundColor: bgColor,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: lightThemeBgColor,
+      selectedItemColor: Colors.green,
+      unselectedItemColor: Colors.black,
+      selectedIconTheme: const IconThemeData(size: 32),
+      unselectedIconTheme: const IconThemeData(size: 32),
     ),
-    headline2: GoogleFonts.openSans(
-      fontSize: 21.0,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-    ),
-    headline3: GoogleFonts.openSans(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    headline6: GoogleFonts.openSans(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
+    iconTheme: IconThemeData(color: lightThemeIconColor, size: 32),
+    textTheme: lightThemeTextTheme,
+    cardTheme: CardTheme(color: cardColor),
   );
 
-  static Color bodyBackgroundColor = Color(0xFF5F5F5);
-  static ThemeData light() {
-    return ThemeData(
-      brightness: Brightness.light,
-      checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateColor.resolveWith(
-          (states) {
-            return Colors.black;
-          },
-        ),
-      ),
-      cardTheme: CardTheme(color: Colors.white),
-      appBarTheme: const AppBarTheme(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-      ),
-      backgroundColor: bodyBackgroundColor,
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.black,
-      ),
-      textTheme: lightTextTheme,
-    );
-  }
+  // static ThemeData light() {
+  //   return ThemeData(
+  //     brightness: Brightness.light,
+  //     checkboxTheme: CheckboxThemeData(
+  //       fillColor: MaterialStateColor.resolveWith(
+  //         (states) {
+  //           return Colors.black;
+  //         },
+  //       ),
+  //     ),
+  //     cardTheme: CardTheme(color: Colors.white),
+  //     appBarTheme: const AppBarTheme(
+  //       foregroundColor: Colors.black,
+  //       backgroundColor: Colors.white,
+  //     ),
+  //     backgroundColor: bodyBackgroundColor,
+  //     floatingActionButtonTheme: const FloatingActionButtonThemeData(
+  //       foregroundColor: Colors.white,
+  //       backgroundColor: Colors.black,
+  //     ),
+  //     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+  //       selectedItemColor: Colors.green,
+  //       unselectedItemColor: Colors.black,
+  //     ),
+  //     textTheme: lightTextTheme,
+  //   );
+  // }
 
-  static ThemeData dark() {
-    return ThemeData(
-      brightness: Brightness.dark,
-      appBarTheme: AppBarTheme(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.grey[900],
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.green,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.green,
-      ),
-      textTheme: darkTextTheme,
-    );
-  }
 }

@@ -1,15 +1,16 @@
 import 'package:exam_training/models/exam.dart';
 import 'package:exam_training/models/importance.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExamCard extends StatelessWidget {
   final Exam exam;
-  ExamCard({Key? key, required this.exam}) : super(key: key);
+  const ExamCard({Key? key, required this.exam}) : super(key: key);
 
   Color getColor(Importance imp) {
     switch (imp) {
       case Importance.low:
-        return Color(0xFFF00D930);
+        return Color(0xfff00d930);
       case Importance.medium:
         return Color(0xFFD9D930);
       case Importance.high:
@@ -19,39 +20,84 @@ class ExamCard extends StatelessWidget {
     }
   }
 
+  final heightDivider = 5.0;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(20),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        extentRatio: 0.5,
+        children: [
+          SlidableAction(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            icon: Icons.question_answer_rounded,
+            onPressed: (context) {},
+          ),
+          SlidableAction(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            icon: Icons.edit_rounded,
+            onPressed: (context) {},
+          ),
+          SlidableAction(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            icon: Icons.delete,
+            onPressed: (context) {},
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          decoration: BoxDecoration(
             color: Theme.of(context).cardTheme.color,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Row(
-          children: [
-            Container(
-              width: 5,
-              height: 50,
-              decoration: BoxDecoration(
-                color: getColor(exam.importance),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: Colors.black),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 5,
+                    height: 85,
+                    decoration: BoxDecoration(
+                      color: getColor(exam.importance),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        exam.title,
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      SizedBox(height: heightDivider),
+                      Text(
+                        '22.11.2022 17:00',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      SizedBox(height: heightDivider),
+                      Text(
+                        exam.location,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            Column(
-              children: [
-                Text(
-                  exam.title,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(height: 10),
-                // Text(exam.dateTime.)
-                SizedBox(height: 10),
-              ],
-            )
-          ],
+              const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: 22,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'package:exam_training/models/exam.dart';
+import 'package:exam_training/models/importance.dart';
 import 'package:flutter/material.dart';
 
 import 'exams_screen.dart';
@@ -10,32 +12,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentPage = 0;
+  int _currentIndex = 0;
 
   changeCurrentPage(int index) {
-    setState(() => _currentPage = index);
+    setState(() => _currentIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'ExamTraining',
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('ExamTraining')),
       body: IndexedStack(
-        index: _currentPage,
+        index: _currentIndex,
         children: _pages,
       ),
+      floatingActionButton: _currentIndex == 0
+          ? IconButton(
+              iconSize: 50,
+              icon: const Icon(Icons.add_circle_rounded),
+              onPressed: () {},
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor:
             Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
         unselectedItemColor:
             Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-        currentIndex: _currentPage,
+        currentIndex: _currentIndex,
         onTap: changeCurrentPage,
         items: navigationBarItems,
       ),
@@ -43,8 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+final exam = Exam(
+  title: 'Test',
+  dateTime: DateTime.now(),
+  location: 'Test',
+  importance: Importance.low,
+  tickets: [],
+);
+
 final _pages = [
-  ExamsScreen(exams: []),
+  ExamsScreen(exams: [exam]),
   const Center(child: Text('Задачи')),
   const Center(child: Text('Профиль')),
 ];
