@@ -80,7 +80,7 @@ class ExamCard extends StatelessWidget {
                       ),
                       SizedBox(height: heightDivider),
                       Text(
-                        '22.11.2022 17:00',
+                        '22.11.2022 17:01',
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       SizedBox(height: heightDivider),
