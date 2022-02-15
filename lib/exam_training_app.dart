@@ -9,7 +9,8 @@ class ExamTrainingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ExamTrainingTheme.lightTheme,
-      home: const HomeScreen(),
+      home: const HomeScreen(
+           ),
     );
   }
 }
