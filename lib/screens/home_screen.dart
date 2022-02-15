@@ -1,5 +1,6 @@
 import 'package:exam_training/models/exam.dart';
 import 'package:exam_training/models/importance.dart';
+import 'package:exam_training/screens/exam_info.dart';
 import 'package:flutter/material.dart';
 
 import 'exams_screen.dart';
@@ -30,7 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ? IconButton(
               iconSize: 50,
               icon: const Icon(Icons.add_circle_rounded),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ExamInfo()));
+              },
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(
