@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 
 void main(List<String> args) {
   log('приложение собирается');
- // runApp(const ExamTrainingApp());
+  runApp(const ExamTrainingApp());
 }
