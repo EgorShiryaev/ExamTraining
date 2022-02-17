@@ -1,10 +1,12 @@
-import 'dart:developer';
-
-import 'package:exam_training/exam_training_app.dart';
+import 'package:exam_training/theme.dart';
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
 void main(List<String> args) {
-  log('приложение собирается');
-  runApp(const ExamTrainingApp());
-  log('Приложение запустилось');
+  runApp(
+    MaterialApp(
+      theme: ExamTrainingTheme.lightTheme,
+      home: const HomeScreen(),
+    ),
+  );
 }

@@ -1,6 +1,6 @@
 import 'package:exam_training/models/exam.dart';
 import 'package:exam_training/models/importance.dart';
-import 'package:exam_training/screens/exam_info.dart';
+import 'package:exam_training/screens/exam_info_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'exams_screen.dart';
@@ -15,8 +15,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  changeCurrentPage(int index) {
+  _changeCurrentPage(int index) {
     setState(() => _currentIndex = index);
+  }
+
+  _navigateToExamInfoPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ExamInfoScreen(),
+      ),
+    );
   }
 
   @override
@@ -31,10 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? IconButton(
               iconSize: 50,
               icon: const Icon(Icons.add_circle_rounded),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ExamInfo()));
-              },
+              onPressed: () => _navigateToExamInfoPage(context),
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(
@@ -43,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor:
             Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         currentIndex: _currentIndex,
-        onTap: changeCurrentPage,
+        onTap: _changeCurrentPage,
         items: navigationBarItems,
       ),
     );

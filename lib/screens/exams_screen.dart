@@ -1,4 +1,4 @@
-import 'package:exam_training/components/exam_card.dart';
+import 'package:exam_training/components/exams/exam_card.dart';
 import 'package:exam_training/models/exam.dart';
 import 'package:flutter/material.dart';
 

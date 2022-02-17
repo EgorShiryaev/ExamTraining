@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExamTrainingTheme {
-  static Color lightThemeTextColor = Colors.black;
-  // static Color darkThemeTextColor = Colors.white;
+  static const Color lightThemeTextColor = Colors.black;
 
   static TextTheme lightThemeTextTheme = TextTheme(
     headline1: GoogleFonts.roboto(
@@ -14,19 +13,24 @@ class ExamTrainingTheme {
       fontSize: 18.0,
       color: lightThemeTextColor,
     ),
+    labelMedium: GoogleFonts.roboto(
+      fontSize: 16.0,
+      color: lightThemeTextColor,
+    ),
   );
 
-  static Color lightThemeBgColor = Colors.white;
-  // static Color darkThemeBgColor = Colors.black;
+  static const Color borderColor = Colors.black;
+
+  static const Color lightThemeBgColor = Colors.white;
 
   static const Color bgColor = Color(0xFFF5F5F5);
 
-  static Color lightThemeIconColor = Colors.black;
+  static const Color lightThemeIconColor = Colors.black;
 
-  static Color selectedIconThemeColor = Colors.green;
-  static Color unselectedIconThemeColor = Colors.black;
+  static const Color selectedIconThemeColor = Colors.green;
+  static const Color unselectedIconThemeColor = Colors.black;
 
-  static Color cardColor = Colors.white;
+  static const Color cardColor = Colors.white;
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
@@ -34,44 +38,15 @@ class ExamTrainingTheme {
       titleTextStyle: lightThemeTextTheme.headline1,
     ),
     scaffoldBackgroundColor: bgColor,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: lightThemeBgColor,
       selectedItemColor: Colors.green,
       unselectedItemColor: Colors.black,
-      selectedIconTheme: const IconThemeData(size: 32),
-      unselectedIconTheme: const IconThemeData(size: 32),
+      selectedIconTheme: IconThemeData(size: 32),
+      unselectedIconTheme: IconThemeData(size: 32),
     ),
-    iconTheme: IconThemeData(color: lightThemeIconColor, size: 32),
+    iconTheme: const IconThemeData(color: lightThemeIconColor, size: 32),
     textTheme: lightThemeTextTheme,
-    cardTheme: CardTheme(color: cardColor),
+    cardTheme: const CardTheme(color: cardColor),
   );
-
-  // static ThemeData light() {
-  //   return ThemeData(
-  //     brightness: Brightness.light,
-  //     checkboxTheme: CheckboxThemeData(
-  //       fillColor: MaterialStateColor.resolveWith(
-  //         (states) {
-  //           return Colors.black;
-  //         },
-  //       ),
-  //     ),
-  //     cardTheme: CardTheme(color: Colors.white),
-  //     appBarTheme: const AppBarTheme(
-  //       foregroundColor: Colors.black,
-  //       backgroundColor: Colors.white,
-  //     ),
-  //     backgroundColor: bodyBackgroundColor,
-  //     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-  //       foregroundColor: Colors.white,
-  //       backgroundColor: Colors.black,
-  //     ),
-  //     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-  //       selectedItemColor: Colors.green,
-  //       unselectedItemColor: Colors.black,
-  //     ),
-  //     textTheme: lightTextTheme,
-  //   );
-  // }
-
 }
