@@ -16,10 +16,10 @@ class ExamInfo extends StatelessWidget {
                   side: BorderSide(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               child: ListTile(
-                title:  Text('Важность:'),
+                title: Text('Важность:'),
               ),
             ),
-            Padding (
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 children: [
@@ -69,6 +69,35 @@ class ExamInfo extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(15))),
               child: ListTile(
                 title: Text('Сохранить', textAlign: TextAlign.center),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Название экзамена...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.calendar_today_outlined,
+                  color: Colors.black,
+                ),
+                title: Text('Выбрать дату экзамена...'),
+                //onTap: () => print("${Icons.title} - tap"),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.access_time_outlined,
+                  color: Colors.black,
+                ),
+                title: Text('Выбрать время экзамена...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Место экзамена...'),
               ),
             ),
           ],
