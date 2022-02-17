@@ -10,11 +10,11 @@ class ExamCard extends StatelessWidget {
   Color getColor(Importance imp) {
     switch (imp) {
       case Importance.low:
-        return Color(0xfff00d930);
+        return const Color(0xff00d930);
       case Importance.medium:
-        return Color(0xFFD9D930);
+        return const Color(0xFFD9D930);
       case Importance.high:
-        return Color(0xFFD90030);
+        return const Color(0xFFD90030);
       default:
         return Colors.grey;
     }
@@ -49,7 +49,7 @@ class ExamCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           decoration: BoxDecoration(
             color: Theme.of(context).cardTheme.color,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -70,7 +70,7 @@ class ExamCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
