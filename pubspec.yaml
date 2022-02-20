@@ -16,6 +16,9 @@ dependencies:
   flutter_slidable: ^1.2.0
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
+  firebase_core: ^1.12.0
+  cloud_firestore: ^3.1.8
+  navigator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
