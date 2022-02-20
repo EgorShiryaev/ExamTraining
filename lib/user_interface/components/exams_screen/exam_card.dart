@@ -1,7 +1,6 @@
-import 'package:exam_training/models/exam.dart';
-import 'package:exam_training/models/importance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import '../../../data/models/_models.dart';
 
 class ExamCard extends StatelessWidget {
   final Exam exam;

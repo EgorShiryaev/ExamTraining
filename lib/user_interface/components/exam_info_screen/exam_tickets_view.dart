@@ -1,7 +1,8 @@
-import 'package:exam_training/components/custom_rounded_button.dart';
-import 'package:exam_training/models/exam_ticket.dart';
-import 'package:exam_training/screens/exam_tickets_screen.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/_models.dart';
+import '../../screens/_screens.dart';
+import '../_components.dart';
+
 
 class ExamTicketsView extends StatelessWidget {
   final List<ExamTicket> examTickets;

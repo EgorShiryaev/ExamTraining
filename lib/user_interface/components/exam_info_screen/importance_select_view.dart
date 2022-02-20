@@ -1,5 +1,5 @@
-import 'package:exam_training/models/importance.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/_models.dart';
 
 class ImportanceSelectView extends StatelessWidget {
   final Importance selectedImportance;
@@ -26,6 +26,7 @@ class ImportanceSelectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.black, width: 1),
