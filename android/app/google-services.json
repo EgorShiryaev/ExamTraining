@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "117096685903",
+    "project_id": "examtraining-73c9b",
+    "storage_bucket": "examtraining-73c9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117096685903:android:535fc0d657d399c86de53a",
+        "android_client_info": {
+          "package_name": "com.example.exam_training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117096685903-5hvkomr7qkqjgl6t1i05njk6q0j0jm0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2FKZYxRlABXcp5JM9TWBOZXqFxI1jgtI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117096685903-5hvkomr7qkqjgl6t1i05njk6q0j0jm0o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117096685903-85ehttd7vnljr0s15umrav8h916ot07u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vyatsu.examTraining"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

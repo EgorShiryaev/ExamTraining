@@ -9,7 +9,7 @@ class ExamCard extends StatelessWidget {
   Color getColor(Importance imp) {
     switch (imp) {
       case Importance.low:
-        return const Color(0xff00d930);
+        return const Color(0xFF00D930);
       case Importance.medium:
         return const Color(0xFFD9D930);
       case Importance.high:
@@ -23,6 +23,8 @@ class ExamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    final color = getColor(exam.importance);
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -48,52 +50,42 @@ class ExamCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardTheme.color,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: Border.all(color: Colors.black),
-          ),
+              color: Theme.of(context).cardTheme.color,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              gradient: LinearGradient(
+                colors: [color, color, Colors.white, Colors.white],
+                stops: [0.0, 5 / widthScreen, 5 / widthScreen, 1.0],
+              )),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 5,
-                    height: 85,
-                    decoration: BoxDecoration(
-                      color: getColor(exam.importance),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(5),
-                      ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      exam.title,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        exam.title,
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                      SizedBox(height: heightDivider),
-                      Text(
-                        '22.11.2022 17:01',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      SizedBox(height: heightDivider),
-                      Text(
-                        exam.location,
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                    ],
-                  ),
-                ],
+                    SizedBox(height: heightDivider),
+                    Text(
+                      '22.11.2022 17:01',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    SizedBox(height: heightDivider),
+                    Text(
+                      exam.location,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ],
+                ),
               ),
               const Icon(
                 Icons.arrow_back_ios_new_rounded,
-                size: 22,
+                size: 22, 
               )
             ],
           ),
