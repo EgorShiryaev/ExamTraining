@@ -1,6 +1,7 @@
-import 'package:exam_training/components/exams/exam_card.dart';
-import 'package:exam_training/models/exam.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/models/_models.dart';
+import '../components/_components.dart';
 
 class ExamsScreen extends StatelessWidget {
   final List<Exam> exams;

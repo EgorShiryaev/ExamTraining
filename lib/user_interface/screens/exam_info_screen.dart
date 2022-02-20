@@ -1,13 +1,9 @@
-import 'package:exam_training/components/custom_rounded_button.dart';
-import 'package:exam_training/components/custom_text_field.dart';
-import 'package:exam_training/components/exam_info_screen/exam_tickets_view.dart';
-import 'package:exam_training/components/exam_info_screen/importance_select_view.dart';
-import 'package:exam_training/components/outlined_button_with_icon.dart';
-import 'package:exam_training/models/exam_ticket.dart';
-import 'package:exam_training/models/importance.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+
+import '../../data/models/_models.dart';
+import '../components/_components.dart';
 
 class ExamInfoScreen extends StatefulWidget {
   const ExamInfoScreen({Key? key}) : super(key: key);
@@ -18,10 +14,10 @@ class ExamInfoScreen extends StatefulWidget {
 
 class _ExamInfoScreenState extends State<ExamInfoScreen> {
   final titleController = TextEditingController();
+  final locationController = TextEditingController();
   DateTime? date;
   TimeOfDay? time;
-  final locationController = TextEditingController();
-  Importance selectedImportance = Importance.high;
+  Importance selectedImportance = Importance.low;
   List<ExamTicket> examTickets = [];
 
   String dateText = 'Выбрать дату экзамену';
@@ -78,7 +74,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    titleController.dispose();
+    locationController.dispose();
     super.dispose();
   }
 
@@ -90,7 +87,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
       ),
       body: ListView(
         padding: const EdgeInsets.all(10),
-        // physics: const ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         children: [
           CustomTextField(
             controller: titleController,

@@ -1,9 +1,7 @@
-import 'package:exam_training/models/exam.dart';
-import 'package:exam_training/models/importance.dart';
-import 'package:exam_training/screens/exam_info_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'exams_screen.dart';
+import '../../data/models/_models.dart';
+import '_screens.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

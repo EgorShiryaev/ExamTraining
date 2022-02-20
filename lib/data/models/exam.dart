@@ -1,6 +1,4 @@
-import 'package:exam_training/models/exam_ticket.dart';
-
-import 'importance.dart';
+import 'exam_ticket.dart';
 
 class Exam {
   final String title;
@@ -16,4 +14,10 @@ class Exam {
     required this.importance,
     required this.tickets,
    });
+}
+
+enum Importance {
+  low,
+  medium,
+  high,
 }
