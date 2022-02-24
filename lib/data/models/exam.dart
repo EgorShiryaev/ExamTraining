@@ -22,10 +22,10 @@ class Exam {
   factory Exam.fromJson(Map<String, dynamic> json) {
     return Exam(
       title: json['title'],
-      dateTime: json['dateTime'],
+      dateTime: DateTime.parse(json['dateTime']),
       location: json['location'],
       importance: Importance.values[json['importance']],
-      tickets: (json['tickets'] as List<Map<String, dynamic>>)
+      tickets: (json['tickets'] as List<dynamic>)
           .map((v) => ExamTicket.fromJson(v))
           .toList(),
     );

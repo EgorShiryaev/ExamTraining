@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../data/models/_models.dart';
 import '_screens.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,16 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-final exam = Exam(
-  title: 'Test',
-  dateTime: DateTime.now(),
-  location: 'Test',
-  importance: Importance.low,
-  tickets: [],
-);
-
 final _pages = [
-  ExamsScreen(exams: [exam]),
+  const ExamsScreen(),
   const Center(child: Text('Задачи')),
   const Center(child: Text('Профиль')),
 ];

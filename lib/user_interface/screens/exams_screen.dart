@@ -1,32 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exam_training/data/daos/exam_dao.dart';
+import 'package:exam_training/user_interface/components/exams_screen/exam_list_view.dart';
 import 'package:flutter/material.dart';
-
-import '../../data/models/_models.dart';
-import '../components/_components.dart';
+import 'package:provider/provider.dart';
 
 class ExamsScreen extends StatelessWidget {
-  final List<Exam> exams;
   const ExamsScreen({
     Key? key,
-    required this.exams,
   }) : super(key: key);
 
   final separatorHeight = 10;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => ExamCard(exam: exams[index]),
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
-            itemCount: exams.length,
-            shrinkWrap: true,
-          ),
-        )
-      ],
+    final examDao = Provider.of<ExamDao>(context, listen: false);
+    return StreamBuilder<QuerySnapshot>(
+      stream: examDao.getExamStream(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Произошла ошибка:${snapshot.error}')
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        } else {
+          return ExamListView(exams: snapshot.data!.docs);
+        }
+      },
     );
+
   }
 }
