@@ -13,7 +13,17 @@ class ExamListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (exams.isEmpty) {
+      return Center(
+        child: Text(
+          'Экзаменов не найдено\nДля добавления экзаменов нажмите кнопку "Добавить" в правом нижнем углу',
+          style: Theme.of(context).textTheme.labelMedium,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
     return ListView(
+      physics: const ClampingScrollPhysics(),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
