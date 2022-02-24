@@ -1,11 +1,21 @@
+import 'dart:developer';
+
+import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import '../../../data/daos/exam_dao.dart';
 import '../../../data/models/_models.dart';
 
 class ExamCard extends StatefulWidget {
   final Exam exam;
-  const ExamCard({Key? key, required this.exam}) : super(key: key);
+  final ExamDao examDao;
+
+  const ExamCard({
+    Key? key,
+    required this.exam,
+    required this.examDao,
+  }) : super(key: key);
 
   @override
   State<ExamCard> createState() => _ExamCardState();
@@ -55,7 +65,9 @@ class _ExamCardState extends State<ExamCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.delete,
-            onPressed: (context) {},
+            onPressed: (context) {
+              _onDelete();
+            },
           ),
         ],
       ),
@@ -106,6 +118,57 @@ class _ExamCardState extends State<ExamCard> {
         ),
       ),
     );
+  }
+
+  _onDelete() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "Вы действительно хотите удалить экзамен?",
+            textAlign: TextAlign.center,
+          ),
+          titleTextStyle: Theme.of(context).textTheme.subtitle2,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 25,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actionsAlignment: MainAxisAlignment.spaceAround,
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomDialogButton(
+                  title: 'Удалить',
+                  onTap: () {
+                    widget.examDao.deleteExam(widget.exam);
+                    Navigator.pop(context);
+                  },
+                  textColor: const Color(0xFFD90030),
+                ),
+                CustomDialogButton(
+                  title: 'Отмена',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  textColor: Colors.blue,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  delete() {
+    try {} catch (e) {
+      log(e.toString());
+    }
   }
 
   String _upperFirst(String text) =>

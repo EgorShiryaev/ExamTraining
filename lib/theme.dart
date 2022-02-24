@@ -17,6 +17,11 @@ class ExamTrainingTheme {
       fontSize: 16.0,
       color: lightThemeTextColor,
     ),
+    subtitle2: GoogleFonts.roboto(
+      fontSize: 18.0,
+      color: lightThemeTextColor,
+      fontWeight: FontWeight.bold,
+    ),
   );
 
   static const Color borderColor = Colors.black;

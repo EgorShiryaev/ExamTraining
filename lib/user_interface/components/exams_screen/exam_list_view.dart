@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/daos/exam_dao.dart';
 import '../../../data/models/_models.dart';
 import '../_components.dart';
 
 class ExamListView extends StatelessWidget {
   final List<DocumentSnapshot> exams;
+  final ExamDao examDao;
+  
   const ExamListView({
     Key? key,
     required this.exams,
+    required this.examDao,
   }) : super(key: key);
 
   @override
@@ -41,6 +45,9 @@ class ExamListView extends StatelessWidget {
 
   _buildExamCard(DocumentSnapshot snapshot) {
     final exam = Exam.fromSnapshot(snapshot);
-    return ExamCard(exam: exam);
+    return ExamCard(
+      exam: exam,
+      examDao: examDao,
+    );
   }
 }
