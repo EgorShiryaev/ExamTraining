@@ -10,7 +10,7 @@ class ExamDao {
   void saveExam(Exam exam) async {
     final list = await collection.get();
     final lastIndex = int.parse(list.docs.last.id);
-    collection.doc((lastIndex + 1).toString()).set(exam);
+    collection.doc((lastIndex + 1).toString()).set(exam.toJson());
   }
 
   Stream<QuerySnapshot> getExamStream() {
@@ -22,6 +22,6 @@ class ExamDao {
   }
 
   void updateExam(Exam exam) {
-    collection.doc(exam.reference!.path).set(exam);
+    collection.doc(exam.reference!.id).set(exam.toJson());
   }
 }

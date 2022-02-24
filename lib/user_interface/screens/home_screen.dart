@@ -1,4 +1,6 @@
+import 'package:exam_training/data/daos/exam_dao.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '_screens.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ExamInfoScreen(),
+        builder: (context) =>
+            ExamInfoScreen(onSave: Provider.of<ExamDao>(context).saveExam),
       ),
     );
   }
