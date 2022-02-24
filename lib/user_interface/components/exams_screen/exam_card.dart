@@ -1,6 +1,9 @@
+import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../../../data/daos/exam_dao.dart';
 import '../../../data/models/_models.dart';
 
 class ExamCard extends StatefulWidget {
@@ -55,7 +58,9 @@ class _ExamCardState extends State<ExamCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.delete,
-            onPressed: (context) {},
+            onPressed: (context) {
+              _onDelete();
+            },
           ),
         ],
       ),
@@ -105,6 +110,52 @@ class _ExamCardState extends State<ExamCard> {
           ),
         ),
       ),
+    );
+  }
+
+  _onDelete() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "Вы действительно хотите удалить экзамен?",
+            textAlign: TextAlign.center,
+          ),
+          titleTextStyle: Theme.of(context).textTheme.subtitle2,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 25,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actionsAlignment: MainAxisAlignment.spaceAround,
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomDialogButton(
+                  title: 'Удалить',
+                  onTap: () {
+                    Provider.of<ExamDao>(context, listen: false)
+                        .deleteExam(widget.exam.reference?.path ?? '');
+                    Navigator.pop(context);
+                  },
+                  textColor: const Color(0xFFD90030),
+                ),
+                CustomDialogButton(
+                  title: 'Отмена',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  textColor: Colors.blue,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 
