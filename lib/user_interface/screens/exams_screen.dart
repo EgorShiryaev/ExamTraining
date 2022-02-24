@@ -25,7 +25,7 @@ class ExamsScreen extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator.adaptive());
         } else {
-          return ExamListView(exams: snapshot.data!.docs);
+          return ExamListView(exams: snapshot.data!.docs, );
         }
       },
     );

@@ -10,18 +10,18 @@ class ExamDao {
   void saveExam(Exam exam) async {
     final list = await collection.get();
     final lastIndex = int.parse(list.docs.last.id);
-    collection.doc((lastIndex + 1).toString()).set(exam);
+    collection.doc((lastIndex + 1).toString()).set(exam.toJson());
   }
 
   Stream<QuerySnapshot> getExamStream() {
     return collection.snapshots();
   }
 
-  void deleteExam(String id) {
-    collection.doc(id).delete();
+  void deleteExam(Exam ex) {
+    collection.doc(ex.reference!.id).delete();
   }
 
   void updateExam(Exam exam) {
-    collection.doc(exam.reference!.path).set(exam);
+    collection.doc(exam.reference!.id).set(exam.toJson());
   }
 }

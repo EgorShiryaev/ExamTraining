@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
 
 class ExamInfoScreen extends StatefulWidget {
-  const ExamInfoScreen({Key? key}) : super(key: key);
+  final Exam? exam;
+  final Function(Exam ex) onSave;
+
+  const ExamInfoScreen({
+    Key? key,
+    required this.onSave,
+    this.exam,
+  }) : super(key: key);
 
   @override
   State<ExamInfoScreen> createState() => _ExamInfoScreenState();
@@ -27,6 +34,26 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting();
+    if (widget.exam != null) {
+      titleController.text = widget.exam!.title;
+      locationController.text = widget.exam!.location;
+      date = widget.exam!.dateTime.toDate();
+      dateText = DateFormat.yMMMMd('ru').format(widget.exam!.dateTime.toDate());
+      time = TimeOfDay(
+        hour: widget.exam!.dateTime.toDate().hour,
+        minute: widget.exam!.dateTime.toDate().minute,
+      );
+      timeText = DateFormat.Hm('ru').format(
+        DateTime(
+          2022,
+          1,
+          1,
+          widget.exam!.dateTime.toDate().hour,
+          widget.exam!.dateTime.toDate().minute,
+        ),
+      );
+      selectedImportance = widget.exam!.importance;
+    }
   }
 
   _selectDate() async {
@@ -34,7 +61,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     final newDate = await showDatePicker(
       context: context,
       initialDate: date == null ? now : date!,
-      firstDate: now.subtract(const Duration(days: 7)),
+      firstDate: now.subtract(const Duration(days: 365)),
       lastDate: now.add(const Duration(days: 365)),
     );
     if (newDate != null) {
@@ -48,7 +75,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   _selectTime() async {
     final newTime = await showTimePicker(
       context: context,
-      initialTime: const TimeOfDay(hour: 12, minute: 0),
+      initialTime: time ?? const TimeOfDay(hour: 12, minute: 0),
     );
     if (newTime != null) {
       setState(() {
@@ -66,10 +93,6 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   _setExamTickets(List<ExamTicket> newTickets) {
     setState(() => examTickets = newTickets);
-  }
-
-  _saveExam(BuildContext context) {
-    Navigator.pop(context);
   }
 
   @override
@@ -123,10 +146,38 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         width: MediaQuery.of(context).size.width - 20,
         height: 60,
         child: CustomRoundedButton(
-          onTap: _saveExam,
+          onTap: _onSave,
           text: 'Сохранить',
         ),
       ),
     );
+  }
+
+  _onSave(context) {
+    if (date != null && time != null) {
+      final exam = Exam(
+        title: titleController.text,
+        dateTime: Timestamp.fromDate(
+          DateTime(
+            date!.year,
+            date!.month,
+            date!.day,
+            time!.hour,
+            time!.minute,
+          ),
+        ),
+        location: locationController.text,
+        importance: selectedImportance,
+        tickets: [
+          ExamTicket(
+            question: 'Вопрос',
+            answer: 'Ответ',
+          ),
+        ],
+      );
+      exam.reference = widget.exam?.reference;
+      widget.onSave(exam);
+      Navigator.pop(context);
+    }
   }
 }

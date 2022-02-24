@@ -3,7 +3,7 @@ import 'exam_ticket.dart';
 
 class Exam {
   final String title;
-  final DateTime dateTime;
+  final Timestamp dateTime;
   final String location;
   final Importance importance;
   final List<ExamTicket> tickets;
@@ -22,7 +22,7 @@ class Exam {
   factory Exam.fromJson(Map<String, dynamic> json) {
     return Exam(
       title: json['title'],
-      dateTime: DateTime.parse(json['dateTime']),
+      dateTime: json['dateTime'],
       location: json['location'],
       importance: Importance.values[json['importance']],
       tickets: (json['tickets'] as List<dynamic>)

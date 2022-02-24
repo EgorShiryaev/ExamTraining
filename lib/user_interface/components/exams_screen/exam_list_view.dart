@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../../data/models/_models.dart';
 import '../_components.dart';
 
 class ExamListView extends StatelessWidget {
   final List<DocumentSnapshot> exams;
+  
   const ExamListView({
     Key? key,
     required this.exams,
@@ -41,6 +41,8 @@ class ExamListView extends StatelessWidget {
 
   _buildExamCard(DocumentSnapshot snapshot) {
     final exam = Exam.fromSnapshot(snapshot);
-    return ExamCard(exam: exam);
+    return ExamCard(
+      exam: exam,
+    );
   }
 }

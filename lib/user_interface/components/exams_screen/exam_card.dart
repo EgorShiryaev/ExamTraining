@@ -1,4 +1,5 @@
 import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
+import 'package:exam_training/user_interface/screens/_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +9,11 @@ import '../../../data/models/_models.dart';
 
 class ExamCard extends StatefulWidget {
   final Exam exam;
-  const ExamCard({Key? key, required this.exam}) : super(key: key);
+
+  const ExamCard({
+    Key? key,
+    required this.exam,
+  }) : super(key: key);
 
   @override
   State<ExamCard> createState() => _ExamCardState();
@@ -53,15 +58,12 @@ class _ExamCardState extends State<ExamCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.edit_rounded,
-            onPressed: (context) {},
+            onPressed: _onEdit,
           ),
           SlidableAction(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            icon: Icons.delete,
-            onPressed: (context) {
-              _onDelete();
-            },
-          ),
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              icon: Icons.delete,
+              onPressed: _onDelete),
         ],
       ),
       child: Padding(
@@ -90,7 +92,7 @@ class _ExamCardState extends State<ExamCard> {
                     SizedBox(height: heightDivider),
                     Text(
                       _upperFirst(DateFormat.yMMMEd()
-                          .format(widget.exam.dateTime)
+                          .format(widget.exam.dateTime.toDate())
                           .toString()),
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
@@ -113,7 +115,19 @@ class _ExamCardState extends State<ExamCard> {
     );
   }
 
-  _onDelete() {
+  _onEdit(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ExamInfoScreen(
+          onSave: Provider.of<ExamDao>(context).updateExam,
+          exam: widget.exam,
+        ),
+      ),
+    );
+  }
+
+  _onDelete(context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -139,7 +153,7 @@ class _ExamCardState extends State<ExamCard> {
                   title: 'Удалить',
                   onTap: () {
                     Provider.of<ExamDao>(context, listen: false)
-                        .deleteExam(widget.exam.reference?.path ?? '');
+                        .deleteExam(widget.exam);
                     Navigator.pop(context);
                   },
                   textColor: const Color(0xFFD90030),
