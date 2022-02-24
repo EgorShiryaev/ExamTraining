@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import '../../../data/models/_models.dart';
 
-class ExamCard extends StatelessWidget {
+class ExamCard extends StatefulWidget {
   final Exam exam;
   const ExamCard({Key? key, required this.exam}) : super(key: key);
+
+  @override
+  State<ExamCard> createState() => _ExamCardState();
+}
+
+class _ExamCardState extends State<ExamCard> {
+  @override
+  void initState() {
+    super.initState();
+    Intl.defaultLocale = 'ru';
+  }
 
   Color getColor(Importance imp) {
     switch (imp) {
@@ -24,7 +36,7 @@ class ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
-    final color = getColor(exam.importance);
+    final color = getColor(widget.exam.importance);
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -52,12 +64,12 @@ class ExamCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
           decoration: BoxDecoration(
-              color: Theme.of(context).cardTheme.color,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              gradient: LinearGradient(
-                colors: [color, color, Colors.white, Colors.white],
-                stops: [0.0, 5 / widthScreen, 5 / widthScreen, 1.0],
-              )),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            gradient: LinearGradient(
+              colors: [color, color, Colors.white, Colors.white],
+              stops: [0.0, 7.5 / widthScreen, 7.5 / widthScreen, 1.0],
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,17 +79,19 @@ class ExamCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      exam.title,
+                      widget.exam.title,
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      '22.11.2022 17:01',
+                      _upperFirst(DateFormat.yMMMEd()
+                          .format(widget.exam.dateTime)
+                          .toString()),
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      exam.location,
+                      widget.exam.location,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ],
@@ -85,7 +99,7 @@ class ExamCard extends StatelessWidget {
               ),
               const Icon(
                 Icons.arrow_back_ios_new_rounded,
-                size: 22, 
+                size: 22,
               )
             ],
           ),
@@ -93,4 +107,7 @@ class ExamCard extends StatelessWidget {
       ),
     );
   }
+
+  String _upperFirst(String text) =>
+      '${text[0].toUpperCase()}${text.substring(1)}';
 }

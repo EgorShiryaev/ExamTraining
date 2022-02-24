@@ -12,7 +12,7 @@ class ExamDao {
     final lastIndex = int.parse(list.docs.last.id);
     collection.doc((lastIndex + 1).toString()).set(exam);
   }
-
+ 
   Stream<QuerySnapshot> getExamStream() {
     return collection.snapshots();
   }
