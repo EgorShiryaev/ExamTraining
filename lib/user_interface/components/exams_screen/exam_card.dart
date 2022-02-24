@@ -1,14 +1,21 @@
+import 'dart:developer';
+
 import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import '../../../data/daos/exam_dao.dart';
 import '../../../data/models/_models.dart';
 
 class ExamCard extends StatefulWidget {
   final Exam exam;
-  const ExamCard({Key? key, required this.exam}) : super(key: key);
+  final ExamDao examDao;
+
+  const ExamCard({
+    Key? key,
+    required this.exam,
+    required this.examDao,
+  }) : super(key: key);
 
   @override
   State<ExamCard> createState() => _ExamCardState();
@@ -138,8 +145,7 @@ class _ExamCardState extends State<ExamCard> {
                 CustomDialogButton(
                   title: 'Удалить',
                   onTap: () {
-                    Provider.of<ExamDao>(context, listen: false)
-                        .deleteExam(widget.exam.reference?.path ?? '');
+                    widget.examDao.deleteExam(widget.exam);
                     Navigator.pop(context);
                   },
                   textColor: const Color(0xFFD90030),
@@ -157,6 +163,12 @@ class _ExamCardState extends State<ExamCard> {
         );
       },
     );
+  }
+
+  delete() {
+    try {} catch (e) {
+      log(e.toString());
+    }
   }
 
   String _upperFirst(String text) =>

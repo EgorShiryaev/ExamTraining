@@ -17,8 +17,8 @@ class ExamDao {
     return collection.snapshots();
   }
 
-  void deleteExam(String id) {
-    collection.doc(id).delete();
+  void deleteExam(Exam ex) {
+    collection.doc(ex.reference!.id).delete();
   }
 
   void updateExam(Exam exam) {
