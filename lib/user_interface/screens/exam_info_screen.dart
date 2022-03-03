@@ -27,8 +27,11 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   Importance selectedImportance = Importance.low;
   List<ExamTicket> examTickets = [];
 
+  bool isSaved = false;
+  bool dontSaveExam = false;
+
   String dateText = 'Выбрать дату экзамену';
-  String timeText = 'Выбрать время';
+  String timeText = 'Выбрать время экзамена';
 
   @override
   void initState() {
@@ -53,6 +56,171 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         ),
       );
       selectedImportance = widget.exam!.importance;
+      examTickets = widget.exam!.tickets;
+    }
+  }
+
+  @override
+  void dispose() async {
+    titleController.dispose();
+    locationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        if (_checkNeedSave()) {
+          if (!isSaved) {
+            await showWarning(context);
+            if (dontSaveExam) {
+              return true;
+            }
+          }
+          return isSaved;
+        }
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('ExamTraining'),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(10),
+          physics: const ClampingScrollPhysics(),
+          children: [
+            CustomTextField(
+              controller: titleController,
+              label: 'Название экзамена',
+            ),
+            OutlinedButtonWithIcon(
+              icon: Icons.today_rounded,
+              text: dateText,
+              onTap: _selectDate,
+            ),
+            OutlinedButtonWithIcon(
+              icon: Icons.schedule_rounded,
+              text: timeText,
+              onTap: _selectTime,
+            ),
+            CustomTextField(
+              controller: locationController,
+              label: 'Место экзамена',
+            ),
+            ImportanceSelectView(
+              selectedImportance: selectedImportance,
+              setImportance: _selectImportance,
+            ),
+            ExamTicketsView(
+              examTickets: examTickets,
+              setTickets: _setExamTickets,
+            ),
+          ],
+        ),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: SizedBox(
+          width: MediaQuery.of(context).size.width - 20,
+          height: 60,
+          child: CustomRoundedButton(
+            onTap: _onSave,
+            text: 'Сохранить',
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool _checkNeedSave() {
+    if (widget.exam == null) {
+      if (titleController.text.isNotEmpty ||
+          locationController.text.isNotEmpty ||
+          date != null ||
+          time != null ||
+          selectedImportance != Importance.low ||
+          examTickets.isNotEmpty) {
+        return true;
+      }
+      return false;
+    } else {
+      if (titleController.text != widget.exam!.title ||
+          locationController.text != widget.exam!.location ||
+          date! != widget.exam!.dateTime.toDate() ||
+          selectedImportance != widget.exam!.importance) {
+        return true;
+      }
+
+      final dateTimeInDate = widget.exam!.dateTime.toDate();
+      if (time!.hour != dateTimeInDate.hour ||
+          time!.minute != dateTimeInDate.minute) {
+        return true;
+      }
+
+      if (examTickets.length != widget.exam!.tickets.length) {
+        return true;
+      }
+      bool ticketsIsChanged = false;
+      final startExamTickets = widget.exam!.tickets;
+      for (var i = 0; i < examTickets.length; i++) {
+        if (examTickets[i].answer != startExamTickets[i].answer ||
+            examTickets[i].question != startExamTickets[i].question) {
+          ticketsIsChanged = true;
+        }
+      }
+      return ticketsIsChanged;
+    }
+  }
+
+  Future<bool?> showWarning(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => CustomAlertDialog(
+        title: 'Есть несохраненные данные. Сохранить?',
+        actionTitle: 'Да',
+        cancelTitle: 'Нет',
+        actionFunction: () {
+          _onSave(context);
+          Navigator.pop(context);
+        },
+        cancelFunction: () {
+          setState(() => dontSaveExam = true);
+          Navigator.pop(context);
+        },
+        actionColor: Colors.blue,
+        cancelColor: Colors.red,
+      ),
+    );
+  }
+
+  _onSave(context) {
+    if (date != null && time != null) {
+      final exam = Exam(
+        title: titleController.text,
+        dateTime: Timestamp.fromDate(
+          DateTime(
+            date!.year,
+            date!.month,
+            date!.day,
+            time!.hour,
+            time!.minute,
+          ),
+        ),
+        location: locationController.text,
+        importance: selectedImportance,
+        tickets: [
+          ExamTicket(
+            question: 'Вопрос',
+            answer: 'Ответ',
+          ),
+        ],
+      );
+      exam.reference = widget.exam?.reference;
+      widget.onSave(exam);
+      setState(() {
+        isSaved = true;
+      });
+      Navigator.pop(context);
     }
   }
 
@@ -93,91 +261,5 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   _setExamTickets(List<ExamTicket> newTickets) {
     setState(() => examTickets = newTickets);
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    locationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ExamTraining'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(10),
-        physics: const ClampingScrollPhysics(),
-        children: [
-          CustomTextField(
-            controller: titleController,
-            label: 'Название экзамена',
-          ),
-          OutlinedButtonWithIcon(
-            icon: Icons.today_rounded,
-            text: dateText,
-            onTap: _selectDate,
-          ),
-          OutlinedButtonWithIcon(
-            icon: Icons.schedule_rounded,
-            text: timeText,
-            onTap: _selectTime,
-          ),
-          CustomTextField(
-            controller: locationController,
-            label: 'Место экзамена',
-          ),
-          ImportanceSelectView(
-            selectedImportance: selectedImportance,
-            setImportance: _selectImportance,
-          ),
-          ExamTicketsView(
-            examTickets: examTickets,
-            setTickets: _setExamTickets,
-          ),
-        ],
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: SizedBox(
-        width: MediaQuery.of(context).size.width - 20,
-        height: 60,
-        child: CustomRoundedButton(
-          onTap: _onSave,
-          text: 'Сохранить',
-        ),
-      ),
-    );
-  }
-
-  _onSave(context) {
-    if (date != null && time != null) {
-      final exam = Exam(
-        title: titleController.text,
-        dateTime: Timestamp.fromDate(
-          DateTime(
-            date!.year,
-            date!.month,
-            date!.day,
-            time!.hour,
-            time!.minute,
-          ),
-        ),
-        location: locationController.text,
-        importance: selectedImportance,
-        tickets: [
-          ExamTicket(
-            question: 'Вопрос',
-            answer: 'Ответ',
-          ),
-        ],
-      );
-      exam.reference = widget.exam?.reference;
-      widget.onSave(exam);
-      Navigator.pop(context);
-    }
   }
 }

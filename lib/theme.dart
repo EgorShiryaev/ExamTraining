@@ -20,7 +20,6 @@ class ExamTrainingTheme {
     subtitle2: GoogleFonts.roboto(
       fontSize: 18.0,
       color: lightThemeTextColor,
-      fontWeight: FontWeight.bold,
     ),
   );
 
@@ -39,9 +38,9 @@ class ExamTrainingTheme {
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
-      backgroundColor: lightThemeBgColor,
-      titleTextStyle: lightThemeTextTheme.headline1,
-    ),
+        backgroundColor: lightThemeBgColor,
+        titleTextStyle: lightThemeTextTheme.headline1,
+        iconTheme: const IconThemeData(color: Colors.black)),
     scaffoldBackgroundColor: bgColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: lightThemeBgColor,
