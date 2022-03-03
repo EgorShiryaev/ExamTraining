@@ -194,7 +194,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   }
 
   _onSave(context) {
-    if (date != null && time != null) {
+    if (_validate()) {
       final exam = Exam(
         title: titleController.text,
         dateTime: Timestamp.fromDate(
@@ -221,6 +221,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         isSaved = true;
       });
       Navigator.pop(context);
+    } else {
+      _onWarning();
     }
   }
 
@@ -279,45 +281,30 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     if (locationController.text.isEmpty) {
       error += 'Поле "Место" должно быть заполнено\n';
       if (date != null) {
-      error += '"Дата экзамена" должна быть выбрана\n';
-    }
-     if (time != null) {
-      error += '"Время экзамена" должно быть выбрано\n';
-    }
-    if (examTickets.isNotEmpty) {
-      error += 'Количество билетов не может быть равно нулю';
+        error += '"Дата экзамена" должна быть выбрана\n';
+      }
+      if (time != null) {
+        error += '"Время экзамена" должно быть выбрано\n';
+      }
+      if (examTickets.isNotEmpty) {
+        error += 'Количество билетов не может быть равно нулю';
+      }
+
+      if (error.isNotEmpty) {
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialog(
+                  title: error,
+                  actionTitle: 'ОК',
+                  actionFunction: () => Navigator.pop(context),
+                  actionColor: Colors.blue,
+                  cancelTitle: '',
+                  cancelFunction: () {},
+                  cancelColor: Colors.blue,
+                  isOneButton: true,
+                ));
+      }
     }
 
-    if (error.isNotEmpty)
-    {showDialog(context: context, builder: builder)}
   }
-
-  _onSave(context) {
-    if (_validate()) {
-      final exam = Exam(
-        title: titleController.text,
-        dateTime: Timestamp.fromDate(
-          DateTime(
-            date!.year,
-            date!.month,
-            date!.day,
-            time!.hour,
-            time!.minute,
-          ),
-        ),
-        location: locationController.text,
-        importance: selectedImportance,
-        tickets: [
-          ExamTicket(
-            question: 'Вопрос',
-            answer: 'Ответ',
-          ),
-        ],
-      );
-      exam.reference = widget.exam?.reference;
-      widget.onSave(exam);
-      Navigator.pop(context);
-    } else {}
-  }
-}
 }
