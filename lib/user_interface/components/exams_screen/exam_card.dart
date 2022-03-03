@@ -91,9 +91,7 @@ class _ExamCardState extends State<ExamCard> {
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      _upperFirst(DateFormat.yMMMEd()
-                          .format(widget.exam.dateTime.toDate())
-                          .toString()),
+                      '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     SizedBox(height: heightDivider),
