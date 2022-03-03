@@ -153,8 +153,37 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     );
   }
 
+  bool _validate() {
+    return titleController.text.isNotEmpty &&
+        locationController.text.isNotEmpty &&
+        date != null &&
+        time != null &&
+        examTickets.isNotEmpty;
+  }
+
+  _onWarning() {
+    String error = '';
+    if (titleController.text.isEmpty) {
+      error += 'Поле "Название" должно быть заполнено\n';
+    }
+    if (locationController.text.isEmpty) {
+      error += 'Поле "Место" должно быть заполнено\n';
+      if (date != null) {
+      error += '"Дата экзамена" должна быть выбрана\n';
+    }
+     if (time != null) {
+      error += '"Время экзамена" должно быть выбрано\n';
+    }
+    if (examTickets.isNotEmpty) {
+      error += 'Количество билетов не может быть равно нулю';
+    }
+
+    if (error.isNotEmpty)
+    {showDialog(context: context, builder: builder)}
+  }
+
   _onSave(context) {
-    if (date != null && time != null) {
+    if (_validate()) {
       final exam = Exam(
         title: titleController.text,
         dateTime: Timestamp.fromDate(
@@ -178,6 +207,6 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
       exam.reference = widget.exam?.reference;
       widget.onSave(exam);
       Navigator.pop(context);
-    }
+    } else {}
   }
 }
