@@ -9,6 +9,7 @@ class CustomAlertDialog extends StatelessWidget {
   final String cancelTitle;
   final Function() cancelFunction;
   final Color cancelColor;
+  final bool isOneButton;
   const CustomAlertDialog({
     Key? key,
     required this.title,
@@ -17,7 +18,7 @@ class CustomAlertDialog extends StatelessWidget {
     required this.actionColor,
     required this.cancelTitle,
     required this.cancelFunction,
-    required this.cancelColor,
+    required this.cancelColor, this.isOneButton=false,
   }) : super(key: key);
 
   @override
@@ -41,11 +42,11 @@ class CustomAlertDialog extends StatelessWidget {
               onTap: actionFunction,
               textColor: actionColor,
             ),
-            CustomDialogButton(
+            isOneButton? CustomDialogButton(
               title: cancelTitle,
               onTap: cancelFunction,
               textColor: cancelColor,
-            ),
+            ):SizedBox(),
           ],
         ),
       ],
