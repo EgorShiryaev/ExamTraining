@@ -35,16 +35,9 @@ class OutlinedButtonWithIcon extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 20,
-              color: Colors.black,
-            ),
+            Icon(icon, size: 20, color: Colors.black),
             const SizedBox(width: 10),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.labelMedium,
-            )
+            Text(text, style: Theme.of(context).textTheme.labelMedium)
           ],
         ),
       ),

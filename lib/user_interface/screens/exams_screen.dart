@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exam_training/data/daos/exam_dao.dart';
-import 'package:exam_training/user_interface/components/exams_screen/exam_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../components/_components.dart';
 
 class ExamsScreen extends StatelessWidget {
   const ExamsScreen({
@@ -18,17 +18,14 @@ class ExamsScreen extends StatelessWidget {
       stream: examDao.getExamStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: Text('Произошла ошибка:${snapshot.error}')
-          );
+          return Center(child: Text('Произошла ошибка:${snapshot.error}'));
         }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator.adaptive());
+        if (snapshot.hasData) {
+          return ExamListView(exams: snapshot.data!.docs);
         } else {
-          return ExamListView(exams: snapshot.data!.docs, );
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
       },
     );
-
   }
 }
