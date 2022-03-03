@@ -3,7 +3,6 @@ import '../../../data/models/_models.dart';
 import '../../screens/_screens.dart';
 import '../_components.dart';
 
-
 class ExamTicketsView extends StatelessWidget {
   final List<ExamTicket> examTickets;
   final Function(List<ExamTicket> newTicket) setTickets;
@@ -30,6 +29,19 @@ class ExamTicketsView extends StatelessWidget {
         text: 'Добавить билеты',
       );
     }
-    return Container();
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).bottomAppBarColor,
+        border: Border.all(color: Colors.black),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Column(
+        children: List<Widget>.generate(
+          examTickets.length,
+          (index) => Text(examTickets[index].question),
+        ),
+      ),
+    );
   }
 }
