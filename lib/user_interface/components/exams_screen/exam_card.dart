@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:exam_training/user_interface/screens/_screens.dart';
 import 'package:exam_training/user_interface/screens/exam_tickets_view_screen.dart';
