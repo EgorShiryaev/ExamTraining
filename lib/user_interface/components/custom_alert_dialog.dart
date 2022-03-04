@@ -1,7 +1,7 @@
 import 'package:exam_training/user_interface/components/_components.dart';
 import 'package:flutter/material.dart';
 
-class CustomAlertDialog extends StatelessWidget {
+class CustomAlertDialog extends StatefulWidget {
   final String title;
   final String actionTitle;
   final Function() actionFunction;
@@ -18,14 +18,43 @@ class CustomAlertDialog extends StatelessWidget {
     required this.actionColor,
     required this.cancelTitle,
     required this.cancelFunction,
-    required this.cancelColor, this.isOneButton=false,
+    required this.cancelColor,
+    this.isOneButton = false,
   }) : super(key: key);
+
+  @override
+  State<CustomAlertDialog> createState() => _CustomAlertDialogState();
+}
+
+class _CustomAlertDialogState extends State<CustomAlertDialog> {
+  final List<Widget> buttons = [];
+
+  @override
+  void initState() {
+    buttons.add(
+      CustomDialogButton(
+        title: widget.actionTitle,
+        onTap: widget.actionFunction,
+        textColor: widget.actionColor,
+      ),
+    );
+    if (!widget.isOneButton) {
+      buttons.add(
+        CustomDialogButton(
+          title: widget.cancelTitle,
+          onTap: widget.cancelFunction,
+          textColor: widget.cancelColor,
+        ),
+      );
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        title,
+        widget.title,
         textAlign: TextAlign.center,
       ),
       titleTextStyle: Theme.of(context).textTheme.subtitle2,
@@ -36,18 +65,7 @@ class CustomAlertDialog extends StatelessWidget {
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CustomDialogButton(
-              title: actionTitle,
-              onTap: actionFunction,
-              textColor: actionColor,
-            ),
-            isOneButton? CustomDialogButton(
-              title: cancelTitle,
-              onTap: cancelFunction,
-              textColor: cancelColor,
-            ):SizedBox(),
-          ],
+          children: buttons,
         ),
       ],
     );

@@ -269,42 +269,47 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     return titleController.text.isNotEmpty &&
         locationController.text.isNotEmpty &&
         date != null &&
-        time != null &&
-        examTickets.isNotEmpty;
+        time != null;
+    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+    // && examTickets.isNotEmpty;
   }
 
   _onWarning() {
-    String error = '';
+    List<String> errors = [];
     if (titleController.text.isEmpty) {
-      error += 'Поле "Название" должно быть заполнено\n';
+      errors.add('"Название экзамена"');
     }
     if (locationController.text.isEmpty) {
-      error += 'Поле "Место" должно быть заполнено\n';
-      if (date != null) {
-        error += '"Дата экзамена" должна быть выбрана\n';
-      }
-      if (time != null) {
-        error += '"Время экзамена" должно быть выбрано\n';
-      }
-      if (examTickets.isNotEmpty) {
-        error += 'Количество билетов не может быть равно нулю';
-      }
-
-      if (error.isNotEmpty) {
-        showDialog(
-            context: context,
-            builder: (_) => CustomAlertDialog(
-                  title: error,
-                  actionTitle: 'ОК',
-                  actionFunction: () => Navigator.pop(context),
-                  actionColor: Colors.blue,
-                  cancelTitle: '',
-                  cancelFunction: () {},
-                  cancelColor: Colors.blue,
-                  isOneButton: true,
-                ));
-      }
+      errors.add('"Место экзамена"');
     }
+    if (date == null) {
+      errors.add('"Дата экзамена"');
+    }
+    if (time == null) {
+      errors.add('"Время экзамена"');
+    }
+    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+    // if (examTickets.isEmpty) {
+    //   errors.add('"Билеты"');
+    // }
 
+    if (errors.isNotEmpty) {
+      final error = errors.length == 1
+          ? 'Поле ${errors.first} должно быть заполнено'
+          : 'Поле ${errors.join(', ')} должны быть заполнены';
+      showDialog(
+        context: context,
+        builder: (_) => CustomAlertDialog(
+          title: error,
+          actionTitle: 'ОК',
+          actionFunction: () => Navigator.pop(context),
+          actionColor: Colors.blue,
+          cancelTitle: '',
+          cancelFunction: () {},
+          cancelColor: Colors.blue,
+          isOneButton: true,
+        ),
+      );
+    }
   }
 }
