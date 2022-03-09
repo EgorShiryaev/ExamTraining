@@ -1,5 +1,6 @@
 import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:exam_training/user_interface/screens/_screens.dart';
+import 'package:exam_training/user_interface/screens/exam_tickets_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +54,7 @@ class _ExamCardState extends State<ExamCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.question_answer_rounded,
-            onPressed: (context) {},
+            onPressed: _onShowExamTickets,
           ),
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -109,6 +110,16 @@ class _ExamCardState extends State<ExamCard> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  _onShowExamTickets(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ExamTicketsViewScreen(examTickets: widget.exam.tickets),
       ),
     );
   }

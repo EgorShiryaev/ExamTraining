@@ -184,7 +184,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   }
 
   _onSave(context) {
-    if (date != null && time != null) {
+    if (_validate()) {
       final exam = Exam(
         title: titleController.text,
         dateTime: Timestamp.fromDate(
@@ -206,6 +206,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         isSaved = true;
       });
       Navigator.pop(context);
+    } else {
+      _onWarning();
     }
   }
 
@@ -259,5 +261,53 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
       return isSaved;
     }
     return true;
+  }
+
+  bool _validate() {
+    return titleController.text.isNotEmpty &&
+        locationController.text.isNotEmpty &&
+        date != null &&
+        time != null;
+    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+    // && examTickets.isNotEmpty;
+  }
+
+  _onWarning() {
+    List<String> errors = [];
+    if (titleController.text.isEmpty) {
+      errors.add('"Название экзамена"');
+    }
+    if (locationController.text.isEmpty) {
+      errors.add('"Место экзамена"');
+    }
+    if (date == null) {
+      errors.add('"Дата экзамена"');
+    }
+    if (time == null) {
+      errors.add('"Время экзамена"');
+    }
+    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+    // if (examTickets.isEmpty) {
+    //   errors.add('"Билеты"');
+    // }
+
+    if (errors.isNotEmpty) {
+      final error = errors.length == 1
+          ? 'Поле ${errors.first} должно быть заполнено'
+          : 'Поле ${errors.join(', ')} должны быть заполнены';
+      showDialog(
+        context: context,
+        builder: (_) => CustomAlertDialog(
+          title: error,
+          actionTitle: 'ОК',
+          actionFunction: () => Navigator.pop(context),
+          actionColor: Colors.blue,
+          cancelTitle: '',
+          cancelFunction: () {},
+          cancelColor: Colors.blue,
+          isOneButton: true,
+        ),
+      );
+    }
   }
 }
