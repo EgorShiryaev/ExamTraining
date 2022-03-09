@@ -201,7 +201,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
           tickets: [
             ExamTicket(question: 'Вопрос', answer: 'Ответ'),
           ]
-           //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+          //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
           // examTickets,
           );
       exam.reference = widget.exam?.reference;
@@ -306,6 +306,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
           actionTitle: 'ОК',
           actionFunction: () => Navigator.pop(context),
           actionColor: Colors.blue,
+          isOneButton: true,
         ),
       );
     }
