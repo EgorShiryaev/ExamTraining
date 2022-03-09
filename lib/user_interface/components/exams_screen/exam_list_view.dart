@@ -5,7 +5,7 @@ import '../_components.dart';
 
 class ExamListView extends StatelessWidget {
   final List<DocumentSnapshot> exams;
-  
+
   const ExamListView({
     Key? key,
     required this.exams,
@@ -16,7 +16,7 @@ class ExamListView extends StatelessWidget {
     if (exams.isEmpty) {
       return Center(
         child: Text(
-          'Экзаменов не найдено\nДля добавления экзаменов нажмите кнопку "Добавить" в правом нижнем углу',
+          'Экзамены не найдены.\nДля добавления экзаменов нажмите кнопку "Добавить" в правом нижнем углу',
           style: Theme.of(context).textTheme.labelMedium,
           textAlign: TextAlign.center,
         ),

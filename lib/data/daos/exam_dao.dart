@@ -9,8 +9,12 @@ class ExamDao {
 
   void saveExam(Exam exam) async {
     final list = await collection.get();
-    final lastIndex = int.parse(list.docs.last.id);
-    collection.doc((lastIndex + 1).toString()).set(exam.toJson());
+    if (list.docs.isEmpty) {
+      collection.doc('0').set(exam.toJson());
+    } else {
+      final lastIndex = int.parse(list.docs.last.id);
+      collection.doc((lastIndex + 1).toString()).set(exam.toJson());
+    }
   }
 
   Stream<QuerySnapshot> getExamStream() {
