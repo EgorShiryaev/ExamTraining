@@ -1,8 +1,8 @@
+import 'package:exam_training/user_interface/components/exam_question_component.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/_models.dart';
 import '../../screens/_screens.dart';
 import '../_components.dart';
-
 
 class ExamTicketsView extends StatelessWidget {
   final List<ExamTicket> examTickets;
@@ -13,15 +13,6 @@ class ExamTicketsView extends StatelessWidget {
     required this.setTickets,
   }) : super(key: key);
 
-  _navigateToExamTicket(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ExamTicketsScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (examTickets.isEmpty) {
@@ -30,6 +21,64 @@ class ExamTicketsView extends StatelessWidget {
         text: 'Добавить билеты',
       );
     }
-    return Container();
+    return GestureDetector(
+      onTap: () => _navigateToExamTicket(context),
+      child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).bottomAppBarColor,
+            border: Border.all(color: Colors.black),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            children: List<Widget>.generate(
+              examTickets.length > 5 ? 5 : examTickets.length,
+              (index) {
+                final question = examTickets[index].question;
+                if (index == 0) {
+                  return _createExamQuestionComponent(index, question);
+                } else if (index == 4 && examTickets.length > 5) {
+                  return Column(
+                    children: [
+                      SizedBox(height: _separatorHeight),
+                      _createExamQuestionComponent(index, question),
+                      Text('. . .',
+                          style: Theme.of(context).textTheme.headline1),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      SizedBox(height: _separatorHeight),
+                      _createExamQuestionComponent(index, question),
+                    ],
+                  );
+                }
+              },
+            ),
+          )),
+    );
+  }
+
+  final _separatorHeight = 10.0;
+
+  _createExamQuestionComponent(int index, String question) {
+    return ExamQuestionComponent(
+      index: index,
+      question: question,
+    );
+  }
+
+  _navigateToExamTicket(BuildContext context) async {
+    setTickets(
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ExamTicketsScreen(
+            tickets: examTickets,
+          ),
+        ),
+      ),
+    );
   }
 }

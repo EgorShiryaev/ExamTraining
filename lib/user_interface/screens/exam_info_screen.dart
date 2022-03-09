@@ -70,18 +70,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        if (_checkNeedSave()) {
-          if (!isSaved) {
-            await showWarning(context);
-            if (dontSaveExam) {
-              return true;
-            }
-          }
-          return isSaved;
-        }
-        return true;
-      },
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ExamTraining'),
@@ -116,6 +105,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
               examTickets: examTickets,
               setTickets: _setExamTickets,
             ),
+            const SizedBox(height: 85),
           ],
         ),
         floatingActionButtonLocation:
@@ -180,8 +170,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         actionTitle: 'Да',
         cancelTitle: 'Нет',
         actionFunction: () {
-          _onSave(context);
           Navigator.pop(context);
+          _onSave(context);
         },
         cancelFunction: () {
           setState(() => dontSaveExam = true);
@@ -196,25 +186,24 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   _onSave(context) {
     if (_validate()) {
       final exam = Exam(
-        title: titleController.text,
-        dateTime: Timestamp.fromDate(
-          DateTime(
-            date!.year,
-            date!.month,
-            date!.day,
-            time!.hour,
-            time!.minute,
+          title: titleController.text,
+          dateTime: Timestamp.fromDate(
+            DateTime(
+              date!.year,
+              date!.month,
+              date!.day,
+              time!.hour,
+              time!.minute,
+            ),
           ),
-        ),
-        location: locationController.text,
-        importance: selectedImportance,
-        tickets: [
-          ExamTicket(
-            question: 'Вопрос',
-            answer: 'Ответ',
-          ),
-        ],
-      );
+          location: locationController.text,
+          importance: selectedImportance,
+          tickets: [
+            ExamTicket(question: 'Вопрос', answer: 'Ответ'),
+          ]
+          //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
+          // examTickets,
+          );
       exam.reference = widget.exam?.reference;
       widget.onSave(exam);
       setState(() {
@@ -265,6 +254,19 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     setState(() => examTickets = newTickets);
   }
 
+  Future<bool> _onWillPop() async {
+    if (_checkNeedSave()) {
+      if (!isSaved) {
+        await showWarning(context);
+        if (dontSaveExam) {
+          return true;
+        }
+      }
+      return isSaved;
+    }
+    return true;
+  }
+
   bool _validate() {
     return titleController.text.isNotEmpty &&
         locationController.text.isNotEmpty &&
@@ -304,9 +306,6 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
           actionTitle: 'ОК',
           actionFunction: () => Navigator.pop(context),
           actionColor: Colors.blue,
-          cancelTitle: '',
-          cancelFunction: () {},
-          cancelColor: Colors.blue,
           isOneButton: true,
         ),
       );

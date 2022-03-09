@@ -17,18 +17,11 @@ class CustomDialogButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(
-          left: 10,
-          right: 10,
-          bottom: 10,
-        ),
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
         child: Center(
           child: Text(
             title,
-            style: GoogleFonts.roboto(
-              color: textColor,
-              fontSize: 18,
-            ),
+            style: GoogleFonts.roboto(color: textColor, fontSize: 18),
           ),
         ),
       ),

@@ -6,9 +6,9 @@ class CustomAlertDialog extends StatefulWidget {
   final String actionTitle;
   final Function() actionFunction;
   final Color actionColor;
-  final String cancelTitle;
-  final Function() cancelFunction;
-  final Color cancelColor;
+  final String? cancelTitle;
+  final Function()? cancelFunction;
+  final Color? cancelColor;
   final bool isOneButton;
   const CustomAlertDialog({
     Key? key,
@@ -16,9 +16,9 @@ class CustomAlertDialog extends StatefulWidget {
     required this.actionTitle,
     required this.actionFunction,
     required this.actionColor,
-    required this.cancelTitle,
-    required this.cancelFunction,
-    required this.cancelColor,
+    this.cancelTitle,
+    this.cancelFunction,
+    this.cancelColor,
     this.isOneButton = false,
   }) : super(key: key);
 
@@ -41,9 +41,9 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
     if (!widget.isOneButton) {
       buttons.add(
         CustomDialogButton(
-          title: widget.cancelTitle,
-          onTap: widget.cancelFunction,
-          textColor: widget.cancelColor,
+          title: widget.cancelTitle!,
+          onTap: widget.cancelFunction!,
+          textColor: widget.cancelColor!,
         ),
       );
     }
@@ -57,7 +57,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
         widget.title,
         textAlign: TextAlign.center,
       ),
-      titleTextStyle: Theme.of(context).textTheme.subtitle2,
+      titleTextStyle: Theme.of(context).textTheme.subtitle1,
       contentPadding:
           const EdgeInsets.only(top: 15, bottom: 0, left: 25, right: 25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
