@@ -70,18 +70,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        if (_checkNeedSave()) {
-          if (!isSaved) {
-            await showWarning(context);
-            if (dontSaveExam) {
-              return true;
-            }
-          }
-          return isSaved;
-        }
-        return true;
-      },
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ExamTraining'),
@@ -116,6 +105,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
               examTickets: examTickets,
               setTickets: _setExamTickets,
             ),
+            const SizedBox(height: 85),
           ],
         ),
         floatingActionButtonLocation:
@@ -208,12 +198,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         ),
         location: locationController.text,
         importance: selectedImportance,
-        tickets: [
-          ExamTicket(
-            question: 'Вопрос',
-            answer: 'Ответ',
-          ),
-        ],
+        tickets: examTickets,
       );
       exam.reference = widget.exam?.reference;
       widget.onSave(exam);
@@ -261,5 +246,18 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   _setExamTickets(List<ExamTicket> newTickets) {
     setState(() => examTickets = newTickets);
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_checkNeedSave()) {
+      if (!isSaved) {
+        await showWarning(context);
+        if (dontSaveExam) {
+          return true;
+        }
+      }
+      return isSaved;
+    }
+    return true;
   }
 }
