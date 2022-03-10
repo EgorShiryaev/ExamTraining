@@ -1,9 +1,9 @@
 import 'package:exam_training/data/models/_models.dart';
 import 'package:flutter/material.dart';
 
-class ExamTicketsScreen extends StatelessWidget {
+class EditTicketsScreen extends StatelessWidget {
   final List<ExamTicket> tickets;
-  const ExamTicketsScreen({
+  const EditTicketsScreen({
     Key? key,
     required this.tickets,
   }) : super(key: key);
