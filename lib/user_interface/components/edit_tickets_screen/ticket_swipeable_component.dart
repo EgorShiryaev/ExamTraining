@@ -2,15 +2,19 @@ import 'package:exam_training/data/models/_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../../screens/answer_exam_ticket_screen.dart';
+
 class TicketSwipeableComponent extends StatelessWidget {
   final int index;
   final ExamTicket ticket;
   final Function(ExamTicket) onDelete;
+  final Function(ExamTicket, int) onEdit;
   const TicketSwipeableComponent({
     Key? key,
     required this.index,
     required this.ticket,
     required this.onDelete,
+    required this.onEdit,
   }) : super(key: key);
 
   @override
@@ -78,7 +82,17 @@ class TicketSwipeableComponent extends StatelessWidget {
     );
   }
 
-  _onEdit(context) {}
+  _onEdit(context) async {
+    final newTicket = ExamTicket(
+        question: ticket.question,
+        answer: await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AnswerExamTicketScreen(ticket: ticket),
+          ),
+        ));
+    onEdit(newTicket, index);
+  }
 
   _onDelete(context) {
     onDelete(ticket);
