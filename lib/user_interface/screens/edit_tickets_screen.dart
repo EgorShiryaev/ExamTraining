@@ -60,6 +60,7 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
                       index: index,
                       ticket: widget.tickets[index],
                       onDelete: _onDelete,
+                      onEdit: _onEdit,
                     ),
                     separatorBuilder: (context, index) => SizedBox(
                       height: _heightDivider,
@@ -111,6 +112,10 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
       _tickets.add(ExamTicket(question: questionController.text, answer: ''));
     });
     questionController.clear();
+  }
+
+  _onEdit(ExamTicket newTicket, int index) {
+    _tickets[index] = newTicket;
   }
 
   _onDelete(ExamTicket ticket) {
