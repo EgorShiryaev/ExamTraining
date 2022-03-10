@@ -1,8 +1,16 @@
+import 'package:exam_training/data/models/_models.dart';
+import 'package:exam_training/user_interface/components/exam_question_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TicketSwipeableComponent extends StatefulWidget {
-  const TicketSwipeableComponent({Key? key}) : super(key: key);
+  final int index;
+  final ExamTicket ticket;
+  const TicketSwipeableComponent({
+    Key? key,
+    required this.index,
+    required this.ticket,
+  }) : super(key: key);
 
   @override
   State<TicketSwipeableComponent> createState() =>
@@ -53,8 +61,10 @@ class _TicketSwipeableComponentState extends State<TicketSwipeableComponent> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-                  child: Container()),
+                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                child: ExamQuestionComponent(
+                    index: widget.index, question: widget.ticket.question),
+              ),
               const Icon(
                 Icons.arrow_back_ios_new_rounded,
                 size: 22,
