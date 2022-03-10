@@ -3,7 +3,6 @@ import '../../../data/models/_models.dart';
 import '../../screens/_screens.dart';
 import '../_components.dart';
 
-
 class ExamTicketsView extends StatelessWidget {
   final List<ExamTicket> examTickets;
   final Function(List<ExamTicket> newTicket) setTickets;
@@ -17,7 +16,7 @@ class ExamTicketsView extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ExamTicketsScreen(),
+        builder: (context) => const EditTicketsScreen(),
       ),
     );
   }
