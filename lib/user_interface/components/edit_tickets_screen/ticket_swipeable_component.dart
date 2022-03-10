@@ -84,15 +84,18 @@ class TicketSwipeableComponent extends StatelessWidget {
   }
 
   _onEdit(context) async {
+    final newAnswer = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AnswerExamTicketScreen(ticket: ticket),
+      ),
+    );
     final newTicket = ExamTicket(
-        question: ticket.question,
-        answer: await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AnswerExamTicketScreen(ticket: ticket),
-              ),
-            ) ??
-            "");
+      question: newAnswer != null
+          ? ticket.question.replaceFirst('!!! ', '')
+          : ticket.question,
+      answer: newAnswer ?? '',
+    );
     onEdit(newTicket, index);
   }
 

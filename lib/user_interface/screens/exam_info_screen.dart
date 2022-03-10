@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -56,7 +58,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
         ),
       );
       selectedImportance = widget.exam!.importance;
-      examTickets = widget.exam!.tickets;
+      examTickets.addAll(widget.exam!.tickets);
     }
   }
 
@@ -153,8 +155,12 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
       bool ticketsIsChanged = false;
       final startExamTickets = widget.exam!.tickets;
       for (var i = 0; i < examTickets.length; i++) {
-        if (examTickets[i].answer != startExamTickets[i].answer ||
-            examTickets[i].question != startExamTickets[i].question) {
+        try {
+          if (examTickets[i].answer != startExamTickets[i].answer ||
+              examTickets[i].question != startExamTickets[i].question) {
+            ticketsIsChanged = true;
+          }
+        } catch (e) {
           ticketsIsChanged = true;
         }
       }
@@ -247,6 +253,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   }
 
   _setExamTickets(List<ExamTicket> newTickets) {
+    log(newTickets.map((e) => e.toJson()).toString());
     setState(() => examTickets = newTickets);
   }
 
