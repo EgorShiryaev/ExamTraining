@@ -17,6 +17,9 @@ class AnswerExamTicketScreen extends StatefulWidget {
 class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
   final answerController = TextEditingController();
 
+  bool isSaved = false;
+  bool dontSave = false;
+
   @override
   void initState() {
     super.initState();
@@ -31,38 +34,77 @@ class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('ExamTraining')),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  SizedBox(
-                    child: Text(
-                      widget.ticket.question,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                  )
-                ],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(title: const Text('ExamTraining')),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    SizedBox(
+                      child: Text(
+                        widget.ticket.question.replaceFirst('!!! ', ''),
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            CustomTextField(
-              label: 'Ответ на билет',
-              controller: answerController,
-              maxLines: 5,
-            ),
-            CustomRoundedButton(onTap: _onSave, text: 'Сохранить'),
-            const SizedBox(height: 10),
-          ],
+              CustomTextField(
+                label: 'Ответ на билет',
+                controller: answerController,
+                maxLines: 5,
+              ),
+              CustomRoundedButton(onTap: _onSave, text: 'Сохранить'),
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
   }
 
   _onSave(context) {
+    setState(() => isSaved = true);
     Navigator.pop(context, answerController.text);
+  }
+
+  Future<bool> _onWillPop() async {
+    if (answerController.text != widget.ticket.answer) {
+      if (!isSaved) {
+        await showWarning(context);
+        if (dontSave) {
+          return true;
+        }
+      }
+      return isSaved;
+    }
+    Navigator.pop(context, answerController.text);
+    return true;
+  }
+
+  Future<bool?> showWarning(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => CustomAlertDialog(
+        title: 'Есть несохраненные данные. Сохранить?',
+        actionTitle: 'Да',
+        cancelTitle: 'Нет',
+        actionFunction: () {
+          Navigator.pop(context);
+          _onSave(context);
+        },
+        cancelFunction: () {
+          setState(() => dontSave = true);
+          Navigator.pop(context);
+        },
+        actionColor: Colors.blue,
+        cancelColor: Colors.red,
+      ),
+    );
   }
 }

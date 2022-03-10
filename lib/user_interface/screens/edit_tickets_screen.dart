@@ -3,6 +3,8 @@ import 'package:exam_training/user_interface/components/custom_text_field.dart';
 import 'package:exam_training/user_interface/components/edit_tickets_screen/ticket_swipeable_component.dart';
 import 'package:flutter/material.dart';
 
+import '../components/custom_alert_dialog.dart';
+
 class EditTicketsScreen extends StatefulWidget {
   final List<ExamTicket> tickets;
   const EditTicketsScreen({
@@ -16,12 +18,15 @@ class EditTicketsScreen extends StatefulWidget {
 
 class _EditTicketsScreenState extends State<EditTicketsScreen> {
   final questionController = TextEditingController();
-  late List<ExamTicket> _tickets;
+  final List<ExamTicket> _tickets = [];
+
+  bool dontSave = false;
+  bool isSaved = false;
 
   @override
   void initState() {
     super.initState();
-    _tickets = widget.tickets;
+    _tickets.addAll(widget.tickets);
   }
 
   @override
@@ -34,14 +39,19 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, widget.tickets);
-        return true;
+        final result = await _onWillPop();
+        if (!dontSave) {
+          Navigator.pop(context, _tickets);
+        } else {
+          Navigator.pop(context);
+        }
+        return result;
       },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ExamTraining'),
         ),
-        body: widget.tickets.isEmpty
+        body: _tickets.isEmpty
             ? Center(
                 child: Text(
                   'Билеты к экзамену не найдены.\nЧтобы добавить билеты введите вопрос билета снизу в поле и нажмите на кнопку добавить справа от поля ввода.',
@@ -55,10 +65,10 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
                   child: ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.tickets.length,
+                    itemCount: _tickets.length,
                     itemBuilder: (context, index) => TicketSwipeableComponent(
                       index: index,
-                      ticket: widget.tickets[index],
+                      ticket: _tickets[index],
                       onDelete: _onDelete,
                       onEdit: _onEdit,
                     ),
@@ -108,20 +118,81 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
   }
 
   _addTicket() {
-    setState(() {
-      _tickets.add(ExamTicket(question: questionController.text, answer: ''));
-    });
-    questionController.clear();
+    if (questionController.text.isNotEmpty) {
+      setState(() {
+        _tickets.add(
+            ExamTicket(question: '!!! ' + questionController.text, answer: ''));
+      });
+      questionController.clear();
+    }
   }
 
   _onEdit(ExamTicket newTicket, int index) {
-    _tickets[index] = newTicket;
+    setState(() {
+      _tickets[index] = newTicket;
+    });
   }
 
   _onDelete(ExamTicket ticket) {
     setState(() {
       _tickets.remove(ticket);
     });
+  }
+
+  Future<bool> _onWillPop() async {
+    if (widget.tickets.length != _tickets.length) {
+      if (!isSaved) {
+        await showWarning(context);
+        if (dontSave) {
+          return true;
+        }
+      }
+      return isSaved;
+    } else {
+      bool ticketsIsChanged = false;
+      final startExamTickets = widget.tickets;
+      for (var i = 0; i < _tickets.length; i++) {
+        try {
+          if (_tickets[i].answer != startExamTickets[i].answer ||
+              _tickets[i].question != startExamTickets[i].question) {
+            ticketsIsChanged = true;
+          }
+        } catch (e) {
+          ticketsIsChanged = true;
+        }
+      }
+      if (ticketsIsChanged) {
+        if (!isSaved) {
+          await showWarning(context);
+          if (dontSave) {
+            return true;
+          }
+        }
+        return isSaved;
+      }
+    }
+    return true;
+  }
+
+  Future<bool?> showWarning(BuildContext context) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => CustomAlertDialog(
+        title: 'Есть несохраненные данные. Сохранить?',
+        actionTitle: 'Да',
+        cancelTitle: 'Нет',
+        actionFunction: () {
+          setState(() => isSaved = true);
+          Navigator.pop(context);
+        },
+        cancelFunction: () {
+          setState(() => dontSave = true);
+          Navigator.pop(context);
+        },
+        actionColor: Colors.blue,
+        cancelColor: Colors.red,
+      ),
+    );
   }
 
   final _heightDivider = 10.0;

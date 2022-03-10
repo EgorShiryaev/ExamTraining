@@ -13,7 +13,6 @@ class ExamTrainingTheme {
       fontSize: 18.0,
       color: lightThemeTextColor,
     ),
-    
     labelMedium: GoogleFonts.roboto(
       fontSize: 16.0,
       color: lightThemeTextColor,

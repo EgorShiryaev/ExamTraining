@@ -70,15 +70,16 @@ class ExamTicketsView extends StatelessWidget {
   }
 
   _navigateToExamTicket(BuildContext context) async {
-    setTickets(
-      await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EditTicketsScreen(
-            tickets: examTickets,
-          ),
+    final newTickets = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditTicketsScreen(
+          tickets: examTickets,
         ),
       ),
     );
+    if (newTickets != null) {
+      setTickets(newTickets);
+    }
   }
 }
