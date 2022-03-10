@@ -33,26 +33,31 @@ class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ExamTraining')),
-      body: ListView(
-        children: [
-          SizedBox(
-            child: Text(
-              widget.ticket.question,
-              style: Theme.of(context).textTheme.subtitle2,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    child: Text(
+                      widget.ticket.question,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      ),
-      floatingActionButton: Column(
-        children: [
-          CustomTextField(
-            label: 'Ответ на билет',
-            controller: answerController,
-            maxLines: 5,
-          ),
-          const SizedBox(height: 10),
-          CustomRoundedButton(onTap: _onSave, text: 'Сохранить')
-        ],
+            CustomTextField(
+              label: 'Ответ на билет',
+              controller: answerController,
+              maxLines: 5,
+            ),
+            CustomRoundedButton(onTap: _onSave, text: 'Сохранить'),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
