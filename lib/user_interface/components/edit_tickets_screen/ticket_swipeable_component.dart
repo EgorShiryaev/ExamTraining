@@ -1,38 +1,24 @@
 import 'package:exam_training/data/models/_models.dart';
-import 'package:exam_training/user_interface/components/exam_question_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class TicketSwipeableComponent extends StatefulWidget {
+class TicketSwipeableComponent extends StatelessWidget {
   final int index;
   final ExamTicket ticket;
+  final Function(ExamTicket) onDelete;
   const TicketSwipeableComponent({
     Key? key,
     required this.index,
     required this.ticket,
+    required this.onDelete,
   }) : super(key: key);
-
-  @override
-  State<TicketSwipeableComponent> createState() =>
-      _TicketSwipeableComponentState();
-}
-
-class _TicketSwipeableComponentState extends State<TicketSwipeableComponent> {
-  late Color color;
-  late double widthScreen;
-
-  @override
-  void initState() {
-    super.initState();
-    widthScreen = MediaQuery.of(context).size.width;
-  }
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.5,
+        extentRatio: 0.4,
         children: [
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -47,23 +33,39 @@ class _TicketSwipeableComponentState extends State<TicketSwipeableComponent> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
         child: Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            gradient: LinearGradient(
-              colors: [color, color, Colors.white, Colors.white],
-              stops: [0.0, 7.5 / widthScreen, 7.5 / widthScreen, 1.0],
-            ),
+          padding: const EdgeInsets.fromLTRB(10, 10, 15, 10),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.white,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-                child: ExamQuestionComponent(
-                    index: widget.index, question: widget.ticket.question),
+              Container(
+                width: 25,
+                height: 25,
+                margin: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(),
+                ),
+                child: Center(
+                  child: Text(
+                    '${index + 1}',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  ticket.question.length > 140
+                      ? '${ticket.question.substring(0, 140)}...'
+                      : ticket.question,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
               const Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -78,5 +80,7 @@ class _TicketSwipeableComponentState extends State<TicketSwipeableComponent> {
 
   _onEdit(context) {}
 
-  _onDelete(context) {}
+  _onDelete(context) {
+    onDelete(ticket);
+  }
 }
