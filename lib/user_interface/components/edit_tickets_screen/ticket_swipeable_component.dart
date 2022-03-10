@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../screens/answer_exam_ticket_screen.dart';
+import '../custom_dialog_button.dart';
 
 class TicketSwipeableComponent extends StatelessWidget {
   final int index;
@@ -86,15 +87,57 @@ class TicketSwipeableComponent extends StatelessWidget {
     final newTicket = ExamTicket(
         question: ticket.question,
         answer: await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AnswerExamTicketScreen(ticket: ticket),
-          ),
-        ));
+              context,
+              MaterialPageRoute(
+                builder: (context) => AnswerExamTicketScreen(ticket: ticket),
+              ),
+            ) ??
+            "");
     onEdit(newTicket, index);
   }
 
   _onDelete(context) {
-    onDelete(ticket);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "Вы действительно хотите удалить экзаменационный билет?",
+            textAlign: TextAlign.center,
+          ),
+          titleTextStyle: Theme.of(context).textTheme.subtitle2,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 25,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          actionsAlignment: MainAxisAlignment.spaceAround,
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomDialogButton(
+                  title: 'Удалить',
+                  onTap: () {
+                    onDelete(ticket);
+                    Navigator.pop(context);
+                  },
+                  textColor: const Color(0xFFD90030),
+                ),
+                CustomDialogButton(
+                  title: 'Отмена',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  textColor: Colors.blue,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }
