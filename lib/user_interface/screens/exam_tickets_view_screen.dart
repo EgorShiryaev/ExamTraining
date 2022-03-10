@@ -1,4 +1,5 @@
 import 'package:exam_training/data/models/_models.dart';
+import 'package:exam_training/user_interface/components/exam_question_component.dart';
 import 'package:flutter/material.dart';
 
 class ExamTicketItem {
@@ -64,17 +65,20 @@ class _ExamTicketsViewScreenState extends State<ExamTicketsViewScreen> {
           examTickets[index].isExpanded = !isExpanded;
         });
       },
-      children: examTickets.map<ExpansionPanel>((ExamTicketItem item) {
+      children: List.generate(examTickets.length, (index) {
         return ExpansionPanel(
-          isExpanded: item.isExpanded,
+          isExpanded: examTickets[index].isExpanded,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
-              title: Text(item.headerValue),
+              title: ExamQuestionComponent(
+                  index: index, question: examTickets[index].headerValue),
             );
           },
-          body: ListTile(title: Text(item.expandedValue)),
+          body: ListTile(
+            title: Text(examTickets[index].expandedValue),
+          ),
         );
-      }).toList(),
+      }),
     );
   }
 }

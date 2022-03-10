@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  const CustomTextField({
-    Key? key,
-    required this.controller,
-    required this.label,
-  }) : super(key: key);
+  final int maxLines;
+  const CustomTextField(
+      {Key? key,
+      required this.controller,
+      required this.label,
+      this.maxLines = 1})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextField(
+        maxLines: maxLines,
         cursorColor: Colors.black,
         controller: controller,
         decoration: InputDecoration(
@@ -28,9 +31,7 @@ class CustomTextField extends StatelessWidget {
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black, width: 1),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
       ),

@@ -186,24 +186,20 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
   _onSave(context) {
     if (_validate()) {
       final exam = Exam(
-          title: titleController.text,
-          dateTime: Timestamp.fromDate(
-            DateTime(
-              date!.year,
-              date!.month,
-              date!.day,
-              time!.hour,
-              time!.minute,
-            ),
+        title: titleController.text,
+        dateTime: Timestamp.fromDate(
+          DateTime(
+            date!.year,
+            date!.month,
+            date!.day,
+            time!.hour,
+            time!.minute,
           ),
-          location: locationController.text,
-          importance: selectedImportance,
-          tickets: [
-            ExamTicket(question: 'Вопрос', answer: 'Ответ'),
-          ]
-          //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
-          // examTickets,
-          );
+        ),
+        location: locationController.text,
+        importance: selectedImportance,
+        tickets: examTickets,
+      );
       exam.reference = widget.exam?.reference;
       widget.onSave(exam);
       setState(() {
@@ -271,9 +267,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     return titleController.text.isNotEmpty &&
         locationController.text.isNotEmpty &&
         date != null &&
-        time != null;
-    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
-    // && examTickets.isNotEmpty;
+        time != null &&
+        examTickets.isNotEmpty;
   }
 
   _onWarning() {
@@ -290,10 +285,9 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     if (time == null) {
       errors.add('"Время экзамена"');
     }
-    //TODO: Раскомментировать когда будет реализована страница добавления вопросов к экзаменам
-    // if (examTickets.isEmpty) {
-    //   errors.add('"Билеты"');
-    // }
+    if (examTickets.isEmpty) {
+      errors.add('"Билеты"');
+    }
 
     if (errors.isNotEmpty) {
       final error = errors.length == 1

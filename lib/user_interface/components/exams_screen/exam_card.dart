@@ -1,6 +1,5 @@
 import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
 import 'package:exam_training/user_interface/screens/_screens.dart';
-import 'package:exam_training/user_interface/screens/exam_tickets_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
