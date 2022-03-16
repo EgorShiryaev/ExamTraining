@@ -78,8 +78,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
-          physics: const ClampingScrollPhysics(),
           children: [
             CustomTextField(
               controller: titleController,
@@ -107,18 +107,15 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
               examTickets: examTickets,
               setTickets: _setExamTickets,
             ),
-            const SizedBox(height: 85),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 20,
+              height: 60,
+              child: CustomRoundedButton(
+                onTap: _onSave,
+                text: 'Сохранить',
+              ),
+            ),
           ],
-        ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: SizedBox(
-          width: MediaQuery.of(context).size.width - 20,
-          height: 60,
-          child: CustomRoundedButton(
-            onTap: _onSave,
-            text: 'Сохранить',
-          ),
         ),
       ),
     );
