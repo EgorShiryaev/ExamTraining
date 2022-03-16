@@ -50,6 +50,12 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ExamTraining'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.check_rounded),
+              onPressed: _save,
+            )
+          ],
         ),
         body: _tickets.isEmpty
             ? Center(
@@ -60,6 +66,8 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
                 ),
               )
             : SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ListView.separated(
@@ -115,6 +123,11 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
         ),
       ),
     );
+  }
+
+  _save() {
+    setState(() => isSaved = true);
+    Navigator.pop(context, _tickets);
   }
 
   _addTicket() {

@@ -67,11 +67,14 @@ class _ExamTicketsViewScreenState extends State<ExamTicketsViewScreen> {
       },
       children: List.generate(examTickets.length, (index) {
         return ExpansionPanel(
+          canTapOnHeader: true,
           isExpanded: examTickets[index].isExpanded,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: ExamQuestionComponent(
-                  index: index, question: examTickets[index].headerValue),
+                index: index,
+                question: examTickets[index].headerValue,
+              ),
             );
           },
           body: ListTile(

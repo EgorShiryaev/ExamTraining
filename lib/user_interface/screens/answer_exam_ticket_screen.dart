@@ -44,6 +44,7 @@ class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
             children: [
               Expanded(
                 child: ListView(
+                  physics: const ClampingScrollPhysics(),
                   children: [
                     SizedBox(
                       child: Text(

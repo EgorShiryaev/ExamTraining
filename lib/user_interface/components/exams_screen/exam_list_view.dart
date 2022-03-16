@@ -23,7 +23,6 @@ class ExamListView extends StatelessWidget {
       );
     }
     return ListView(
-      physics: const ClampingScrollPhysics(),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
