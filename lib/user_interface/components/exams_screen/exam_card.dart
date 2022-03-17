@@ -80,15 +80,19 @@ class _ExamCardState extends State<ExamCard> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
+              Container(
+                width: MediaQuery.of(context).size.width - 47,
                 padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.exam.title,
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
+                Text(
+                        widget.exam.title,                  
+                        style: Theme.of(context).textTheme.headline1,
+                        overflow: TextOverflow.ellipsis ,
+                      ),
+                    
+                    
                     SizedBox(height: heightDivider),
                     Text(
                       '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
@@ -96,8 +100,9 @@ class _ExamCardState extends State<ExamCard> {
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      widget.exam.location,
+                      widget.exam.location, 
                       style: Theme.of(context).textTheme.subtitle1,
+                      overflow: TextOverflow.ellipsis ,
                     ),
                   ],
                 ),
