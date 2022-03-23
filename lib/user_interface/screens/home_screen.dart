@@ -1,4 +1,4 @@
-import 'package:exam_training/data/daos/exam_dao.dart';
+import 'package:exam_training/data/daos/exams_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '_screens.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            ExamInfoScreen(onSave: Provider.of<ExamDao>(context).saveExam),
+            ExamInfoScreen(onSave: Provider.of<ExamsDao>(context).add),
       ),
     );
   }

@@ -1,11 +1,11 @@
-import 'package:exam_training/user_interface/components/custom_dialog_button.dart';
-import 'package:exam_training/user_interface/screens/_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../data/daos/exam_dao.dart';
+import '../../../data/daos/exams_dao.dart';
 import '../../../data/models/_models.dart';
+import '../../screens/_screens.dart';
+import '../_components.dart';
 
 class ExamCard extends StatefulWidget {
   final Exam exam;
@@ -133,7 +133,7 @@ class _ExamCardState extends State<ExamCard> {
       context,
       MaterialPageRoute(
         builder: (context) => ExamInfoScreen(
-          onSave: Provider.of<ExamDao>(context).updateExam,
+          onSave: Provider.of<ExamsDao>(context).update,
           exam: widget.exam,
         ),
       ),
@@ -165,8 +165,8 @@ class _ExamCardState extends State<ExamCard> {
                 CustomDialogButton(
                   title: 'Удалить',
                   onTap: () {
-                    Provider.of<ExamDao>(context, listen: false)
-                        .deleteExam(widget.exam);
+                    Provider.of<ExamsDao>(context, listen: false)
+                        .delete(widget.exam.reference!.id);
                     Navigator.pop(context);
                   },
                   textColor: const Color(0xFFD90030),

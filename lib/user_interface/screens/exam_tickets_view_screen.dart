@@ -1,5 +1,5 @@
 import 'package:exam_training/data/models/_models.dart';
-import 'package:exam_training/user_interface/components/exam_question_component.dart';
+import 'package:exam_training/user_interface/components/_components.dart';
 import 'package:flutter/material.dart';
 
 class ExamTicketItem {
