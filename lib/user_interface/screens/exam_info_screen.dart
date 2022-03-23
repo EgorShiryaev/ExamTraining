@@ -232,6 +232,9 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     final newTime = await showTimePicker(
       context: context,
       initialTime: time ?? const TimeOfDay(hour: 12, minute: 0),
+      cancelText: 'Отмена',
+      confirmText: 'Готово',
+      helpText: 'Выберите время',
     );
     if (newTime != null) {
       setState(() {

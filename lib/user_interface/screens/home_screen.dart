@@ -17,31 +17,27 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _currentIndex = index);
   }
 
-  _navigateToExamInfoPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            ExamInfoScreen(onSave: Provider.of<ExamsDao>(context).add),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ExamTraining')),
+      appBar: AppBar(
+        title: const Text('ExamTraining'),
+        actions: [
+          IconButton(
+            icon: Icon(
+                _currentIndex == 2 ? Icons.edit_rounded : Icons.add_rounded),
+            onPressed: _currentIndex == 2
+                ? _navigateToEditProfilePage
+                : _currentIndex == 0
+                    ? _navigateToExamInfoPage
+                    : _navigateToTaskInfoPage,
+          )
+        ],
+      ),
       body: IndexedStack(
         index: _currentIndex,
         children: _pages,
       ),
-      floatingActionButton: _currentIndex == 0
-          ? IconButton(
-              iconSize: 50,
-              icon: const Icon(Icons.add_circle_rounded),
-              onPressed: () => _navigateToExamInfoPage(context),
-            )
-          : null,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor:
             Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
@@ -53,6 +49,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  _navigateToExamInfoPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ExamInfoScreen(onSave: Provider.of<ExamsDao>(context).add),
+      ),
+    );
+  }
+
+  _navigateToTaskInfoPage() {}
+
+  _navigateToEditProfilePage() {}
 }
 
 final _pages = [

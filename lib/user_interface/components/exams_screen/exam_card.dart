@@ -86,23 +86,21 @@ class _ExamCardState extends State<ExamCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Text(
-                        widget.exam.title,                  
-                        style: Theme.of(context).textTheme.headline1,
-                        overflow: TextOverflow.ellipsis ,
-                      ),
-                    
-                    
-                    SizedBox(height: heightDivider),
                     Text(
-                      '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
+                      widget.exam.title,
                       style: Theme.of(context).textTheme.subtitle1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      widget.exam.location, 
-                      style: Theme.of(context).textTheme.subtitle1,
-                      overflow: TextOverflow.ellipsis ,
+                      '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    SizedBox(height: heightDivider),
+                    Text(
+                      widget.exam.location,
+                      style: Theme.of(context).textTheme.subtitle2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -123,7 +121,7 @@ class _ExamCardState extends State<ExamCard> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            ExamTicketsViewScreen(examTickets: widget.exam.tickets),
+            TicketsViewScreen(examTickets: widget.exam.tickets),
       ),
     );
   }
@@ -164,18 +162,12 @@ class _ExamCardState extends State<ExamCard> {
               children: [
                 CustomDialogButton(
                   title: 'Удалить',
-                  onTap: () {
-                    Provider.of<ExamsDao>(context, listen: false)
-                        .delete(widget.exam.reference!.id);
-                    Navigator.pop(context);
-                  },
+                  onTap: _onDeleteModal,
                   textColor: const Color(0xFFD90030),
                 ),
                 CustomDialogButton(
                   title: 'Отмена',
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: _onCancelModal,
                   textColor: Colors.blue,
                 ),
               ],
@@ -184,6 +176,16 @@ class _ExamCardState extends State<ExamCard> {
         );
       },
     );
+  }
+
+  _onDeleteModal() {
+    Provider.of<ExamsDao>(context, listen: false)
+        .delete(widget.exam.reference!.id);
+    Navigator.pop(context);
+  }
+
+  _onCancelModal() {
+    Navigator.pop(context);
   }
 
   String _upperFirst(String text) =>

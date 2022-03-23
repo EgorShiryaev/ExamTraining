@@ -2,21 +2,9 @@ import 'package:exam_training/data/models/_models.dart';
 import 'package:exam_training/user_interface/components/_components.dart';
 import 'package:flutter/material.dart';
 
-class ExamTicketItem {
-  ExamTicketItem({
-    required this.headerValue,
-    required this.expandedValue,
-    this.isExpanded = false,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-}
-
-class ExamTicketsViewScreen extends StatefulWidget {
+class TicketsViewScreen extends StatefulWidget {
   final List<ExamTicket> examTickets;
-  const ExamTicketsViewScreen({
+  const TicketsViewScreen({
     Key? key,
     required this.examTickets,
   }) : super(key: key);
@@ -31,10 +19,10 @@ class ExamTicketsViewScreen extends StatefulWidget {
   }
 
   @override
-  State<ExamTicketsViewScreen> createState() => _ExamTicketsViewScreenState();
+  State<TicketsViewScreen> createState() => _TicketsViewScreenState();
 }
 
-class _ExamTicketsViewScreenState extends State<ExamTicketsViewScreen> {
+class _TicketsViewScreenState extends State<TicketsViewScreen> {
   List<ExamTicketItem> examTickets = [];
 
   @override
@@ -60,6 +48,7 @@ class _ExamTicketsViewScreenState extends State<ExamTicketsViewScreen> {
 
   Widget _buildPanel() {
     return ExpansionPanelList(
+      expandedHeaderPadding: const EdgeInsets.all(0),
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
           examTickets[index].isExpanded = !isExpanded;
@@ -78,10 +67,25 @@ class _ExamTicketsViewScreenState extends State<ExamTicketsViewScreen> {
             );
           },
           body: ListTile(
-            title: Text(examTickets[index].expandedValue),
+            title: Text(
+              examTickets[index].expandedValue,
+              style: Theme.of(context).textTheme.caption,
+            ),
           ),
         );
       }),
     );
   }
+}
+
+class ExamTicketItem {
+  ExamTicketItem({
+    required this.headerValue,
+    required this.expandedValue,
+    this.isExpanded = false,
+  });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
 }

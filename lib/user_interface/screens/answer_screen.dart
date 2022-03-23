@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
 
-class AnswerExamTicketScreen extends StatefulWidget {
+class AnswerScreen extends StatefulWidget {
   final ExamTicket ticket;
-  const AnswerExamTicketScreen({
+  const AnswerScreen({
     Key? key,
     required this.ticket,
   }) : super(key: key);
 
   @override
-  State<AnswerExamTicketScreen> createState() => _AnswerExamTicketScreenState();
+  State<AnswerScreen> createState() => _AnswerScreenState();
 }
 
-class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
+class _AnswerScreenState extends State<AnswerScreen> {
   final answerController = TextEditingController();
 
   bool isSaved = false;
@@ -49,7 +49,7 @@ class _AnswerExamTicketScreenState extends State<AnswerExamTicketScreen> {
                     SizedBox(
                       child: Text(
                         widget.ticket.question.replaceFirst('!!! ', ''),
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
                     )
                   ],

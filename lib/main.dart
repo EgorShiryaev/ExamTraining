@@ -1,5 +1,5 @@
 import 'package:exam_training/data/daos/exams_dao.dart';
-import 'package:exam_training/theme.dart';
+import 'package:exam_training/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -26,8 +26,9 @@ class ExamTrainingApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        theme: ExamTrainingTheme.lightTheme,
+        theme: AppTheme().light,
         home: const HomeScreen(),
+        
       ),
     );
   }

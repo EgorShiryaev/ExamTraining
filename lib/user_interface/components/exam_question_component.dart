@@ -24,16 +24,14 @@ class ExamQuestionComponent extends StatelessWidget {
           child: Center(
             child: Text(
               '${index + 1}',
-              style: Theme.of(context).textTheme.labelMedium,
+              style: Theme.of(context).textTheme.caption,
             ),
           ),
         ),
         Expanded(
           child: Text(
-            question.length > 140
-                ? '${question.substring(0, 140)}...'
-                : question,
-            style: Theme.of(context).textTheme.labelMedium,
+            question,
+            style: Theme.of(context).textTheme.caption,
           ),
         )
       ],

@@ -58,7 +58,7 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
             ? Center(
                 child: Text(
                   'Билеты к экзамену не найдены.\nЧтобы добавить билеты введите вопрос билета снизу в поле и нажмите на кнопку добавить справа от поля ввода.',
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.caption,
                   textAlign: TextAlign.center,
                 ),
               )

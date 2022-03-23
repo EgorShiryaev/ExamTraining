@@ -60,7 +60,7 @@ class TicketSwipeableComponent extends StatelessWidget {
                 child: Center(
                   child: Text(
                     '${index + 1}',
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.caption,
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class TicketSwipeableComponent extends StatelessWidget {
                   ticket.question.length > 140
                       ? '${ticket.question.substring(0, 140)}...'
                       : ticket.question,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.caption,
                 ),
               ),
               const Icon(
@@ -87,7 +87,7 @@ class TicketSwipeableComponent extends StatelessWidget {
     final newAnswer = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AnswerExamTicketScreen(ticket: ticket),
+        builder: (context) => AnswerScreen(ticket: ticket),
       ),
     );
     final newTicket = ExamTicket(
@@ -108,7 +108,7 @@ class TicketSwipeableComponent extends StatelessWidget {
             "Вы действительно хотите удалить экзаменационный билет?",
             textAlign: TextAlign.center,
           ),
-          titleTextStyle: Theme.of(context).textTheme.subtitle2,
+          titleTextStyle: Theme.of(context).textTheme.subtitle1,
           contentPadding: const EdgeInsets.symmetric(
             vertical: 15,
             horizontal: 25,

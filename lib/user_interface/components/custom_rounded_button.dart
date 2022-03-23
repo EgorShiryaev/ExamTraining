@@ -33,7 +33,7 @@ class CustomRoundedButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.labelMedium,
+            style: Theme.of(context).textTheme.caption,
           ),
         ),
       ),

@@ -42,7 +42,7 @@ class ExamTicketsView extends StatelessWidget {
                       SizedBox(height: _separatorHeight),
                       _createExamQuestionComponent(index, question),
                       Text('. . .',
-                          style: Theme.of(context).textTheme.headline1),
+                          style: Theme.of(context).textTheme.subtitle2),
                     ],
                   );
                 } else {
