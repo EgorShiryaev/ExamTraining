@@ -68,35 +68,4 @@ class AppTheme {
       fontSize: 16.0,
     ),
   );
-
-  // static const Color borderColor = Colors.black;
-
-  // static const Color lightThemeBgColor = Colors.white;
-
-  // static const Color bgColor = Color(0xFFF5F5F5);
-
-  // static const Color lightThemeIconColor = Colors.black;
-
-  // static const Color selectedIconThemeColor = Colors.green;
-  // static const Color unselectedIconThemeColor = Colors.black;
-
-  // static const Color cardColor = Colors.white;
-
-  // static ThemeData lightTheme = ThemeData(
-  //   appBarTheme: AppBarTheme(
-  //       backgroundColor: lightThemeBgColor,
-  //       titleTextStyle: lightThemeTextTheme.subtitle1,
-  //       iconTheme: const IconThemeData(color: Colors.black)),
-  //   scaffoldBackgroundColor: bgColor,
-  //   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-  //     backgroundColor: lightThemeBgColor,
-  //     selectedItemColor: Colors.green,
-  //     unselectedItemColor: Colors.black,
-  //     selectedIconTheme: IconThemeData(size: 32),
-  //     unselectedIconTheme: IconThemeData(size: 32),
-  //   ),
-  //   iconTheme: const IconThemeData(color: lightThemeIconColor, size: 32),
-  //   textTheme: lightThemeTextTheme,
-  //   cardTheme: const CardTheme(color: cardColor),
-  // );
 }
