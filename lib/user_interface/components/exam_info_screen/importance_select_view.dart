@@ -37,7 +37,7 @@ class ImportanceSelectView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Важность:', style: Theme.of(context).textTheme.labelMedium),
+            Text('Важность:', style: Theme.of(context).textTheme.caption),
             const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +65,7 @@ class ImportanceSelectView extends StatelessWidget {
       ),
       label: Text(
         label,
-        style: Theme.of(context).textTheme.labelMedium,
+        style: Theme.of(context).textTheme.caption,
       ),
       selected: imp == selectedImportance,
       onSelected: (selected) {

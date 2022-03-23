@@ -57,7 +57,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
         widget.title,
         textAlign: TextAlign.center,
       ),
-      titleTextStyle: Theme.of(context).textTheme.subtitle1,
+      titleTextStyle: Theme.of(context).textTheme.subtitle2,
       contentPadding:
           const EdgeInsets.only(top: 15, bottom: 0, left: 25, right: 25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

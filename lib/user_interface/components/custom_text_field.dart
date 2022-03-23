@@ -16,12 +16,13 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextField(
+        style: Theme.of(context).textTheme.caption,
         maxLines: maxLines,
         cursorColor: Colors.black,
         controller: controller,
         decoration: InputDecoration(
           label: Text(label),
-          labelStyle: Theme.of(context).textTheme.labelMedium,
+          labelStyle: Theme.of(context).textTheme.caption,
           contentPadding: const EdgeInsets.all(15),
           fillColor: Colors.white,
           filled: true,
