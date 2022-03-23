@@ -1,30 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exam_training/data/daos/exams_dao.dart';
+import 'package:exam_training/data/daos/tasks_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
+import '../components/tasks_screen/task_list_view.dart';
 
-class ExamsScreen extends StatelessWidget {
-  const ExamsScreen({Key? key}) : super(key: key);
+class TasksScreen extends StatelessWidget {
+  const TasksScreen({Key? key}) : super(key: key);
 
   final separatorHeight = 10;
 
   @override
   Widget build(BuildContext context) {
-    final examsDao = Provider.of<ExamsDao>(context, listen: false);
+    final tasksDao = Provider.of<TasksDao>(context, listen: false);
     return StreamBuilder<QuerySnapshot>(
-      stream: examsDao.stream,
+      stream: tasksDao.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text('Произошла ошибка:${snapshot.error}'));
+          return Center(
+            child: Text('Произошла ошибка:${snapshot.error}'),
+          );
         }
         if (snapshot.hasData) {
           if (snapshot.data!.docs.isNotEmpty) {
-            final List<Exam> exams =
-                (snapshot.data!.docs).map((e) => Exam.fromSnapshot(e)).toList();
-            exams.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-            return ExamListView(exams: exams);
+            final List<Task> tasks =
+                (snapshot.data!.docs).map((e) => Task.fromSnapshot(e)).toList();
+            tasks.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+            return TaskListView(tasks: tasks);
           } else {
             return const EmptyExamsWidget();
           }

@@ -1,4 +1,5 @@
 import 'package:exam_training/data/daos/exams_dao.dart';
+import 'package:exam_training/user_interface/screens/tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '_screens.dart';
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 final _pages = [
   const ExamsScreen(),
-  const Center(child: Text('Задачи')),
+  const TasksScreen(),
   const Center(child: Text('Профиль')),
 ];
 

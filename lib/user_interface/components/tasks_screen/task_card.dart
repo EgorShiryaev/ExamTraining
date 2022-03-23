@@ -1,23 +1,22 @@
-import 'package:exam_training/utils/get_color_for_importance.dart';
+import 'package:exam_training/data/daos/tasks_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../data/daos/exams_dao.dart';
 import '../../../data/models/_models.dart';
-import '../../screens/_screens.dart';
+import '../../../utils/get_color_for_importance.dart';
 import '../_components.dart';
 
-class ExamCard extends StatefulWidget {
-  final Exam exam;
+class TaskCard extends StatefulWidget {
+  final Task task;
 
-  const ExamCard({Key? key, required this.exam}) : super(key: key);
+  const TaskCard({Key? key, required this.task}) : super(key: key);
 
   @override
-  State<ExamCard> createState() => _ExamCardState();
+  State<TaskCard> createState() => _TaskCardState();
 }
 
-class _ExamCardState extends State<ExamCard> {
+class _TaskCardState extends State<TaskCard> {
   @override
   void initState() {
     super.initState();
@@ -28,8 +27,7 @@ class _ExamCardState extends State<ExamCard> {
 
   @override
   Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
-    final color = getColorForImportance(widget.exam.importance);
+
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -55,35 +53,43 @@ class _ExamCardState extends State<ExamCard> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
           padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            gradient: LinearGradient(
-              colors: [color, color, Colors.white, Colors.white],
-              stops: [0.0, 7.5 / widthScreen, 7.5 / widthScreen, 1.0],
-            ),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Transform.scale(
+                scale: 1.4,
+                child: Checkbox(
+                  shape: const CircleBorder(),
+                  side: BorderSide(
+                    color: getColorForImportance(widget.task.importance),
+                  ),
+                  value: widget.task.completed,
+                  onChanged: (tr) {},
+                ),
+              ),
               Container(
-                width: MediaQuery.of(context).size.width - 47,
-                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                width: MediaQuery.of(context).size.width - 95,
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.exam.title,
+                      widget.task.title,
                       style: Theme.of(context).textTheme.subtitle1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
+                      '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
-                      widget.exam.location,
+                      widget.task.description,
                       style: Theme.of(context).textTheme.subtitle2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -101,27 +107,9 @@ class _ExamCardState extends State<ExamCard> {
     );
   }
 
-  _onShowExamTickets(context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            TicketsViewScreen(examTickets: widget.exam.tickets),
-      ),
-    );
-  }
+  _onShowExamTickets(context) {}
 
-  _onEdit(context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ExamInfoScreen(
-          onSave: Provider.of<ExamsDao>(context).update,
-          exam: widget.exam,
-        ),
-      ),
-    );
-  }
+  _onEdit(context) {}
 
   _onDelete(context) {
     showDialog(
@@ -129,7 +117,7 @@ class _ExamCardState extends State<ExamCard> {
       builder: (context) {
         return AlertDialog(
           title: const Text(
-            "Вы действительно хотите удалить экзамен?",
+            "Вы действительно хотите удалить задачу?",
             textAlign: TextAlign.center,
           ),
           titleTextStyle: Theme.of(context).textTheme.subtitle2,
@@ -164,8 +152,8 @@ class _ExamCardState extends State<ExamCard> {
   }
 
   _onDeleteModal() {
-    Provider.of<ExamsDao>(context, listen: false)
-        .delete(widget.exam.reference!.id);
+    Provider.of<TasksDao>(context, listen: false)
+        .delete(widget.task.reference!.id);
     Navigator.pop(context);
   }
 

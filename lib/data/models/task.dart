@@ -4,18 +4,20 @@ import '_models.dart';
 class Task {
   final String title;
   final Timestamp dateTime;
-  final String location;
+  final String description;
   final Importance importance;
   final List<Subtask> subtasks;
+  final bool completed;
 
   DocumentReference? reference;
 
   Task({
     required this.title,
     required this.dateTime,
-    required this.location,
+    required this.description,
     required this.importance,
     required this.subtasks,
+    required this.completed,
     this.reference,
   });
 
@@ -23,9 +25,10 @@ class Task {
     return Task(
       title: json['title'],
       dateTime: json['dateTime'],
-      location: json['location'],
-      importance: json['importance'],
-      subtasks: (json['subtasks'] as List<Map<String, dynamic>>)
+      description: json['description'],
+      completed: json['completed'],
+      importance: Importance.values[json['importance']],
+      subtasks: (json['subtasks'] as List<dynamic>)
           .map((e) => Subtask.fromJson(e))
           .toList(),
     );
@@ -41,7 +44,8 @@ class Task {
     return {
       'title': title,
       'dateTime': dateTime,
-      'location': location,
+      'description': description,
+      'completed': completed,
       'importance': importance,
       'subtasks': subtasks.map((e) => e.toJson()),
     };
