@@ -1,34 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '_models.dart';
 
-class Exam {
+class Task {
   final String title;
   final Timestamp dateTime;
   final String location;
   final Importance importance;
-  final List<ExamTicket> tickets;
+  final List<Subtask> subtasks;
 
   DocumentReference? reference;
 
-  Exam({
+  Task({
     required this.title,
     required this.dateTime,
     required this.location,
     required this.importance,
-    required this.tickets,
+    required this.subtasks,
     this.reference,
   });
 
-  factory Exam.fromJson(Map<String, dynamic> json) {
-    return Exam(
+  factory Task.fromJson(Map<String, dynamic> json) {
+    return Task(
       title: json['title'],
       dateTime: json['dateTime'],
       location: json['location'],
-      importance: Importance.values[json['importance']],
-      tickets: (json['tickets'] as List<dynamic>)
-          .map((v) => ExamTicket.fromJson(v))
+      importance: json['importance'],
+      subtasks: (json['subtasks'] as List<Map<String, dynamic>>)
+          .map((e) => Subtask.fromJson(e))
           .toList(),
     );
+  }
+
+  factory Task.fromSnapshot(DocumentSnapshot snapshot) {
+    final task = Task.fromJson(snapshot.data() as Map<String, dynamic>);
+    task.reference = snapshot.reference;
+    return task;
   }
 
   Map<String, dynamic> toJson() {
@@ -36,15 +42,8 @@ class Exam {
       'title': title,
       'dateTime': dateTime,
       'location': location,
-      'importance': importance.index,
-      'tickets': tickets.map((e) => e.toJson()).toList(),
+      'importance': importance,
+      'subtasks': subtasks.map((e) => e.toJson()),
     };
   }
-
-  factory Exam.fromSnapshot(DocumentSnapshot snapshot) {
-    final exam = Exam.fromJson(snapshot.data() as Map<String, dynamic>);
-    exam.reference = snapshot.reference;
-    return exam;
-  }
 }
-

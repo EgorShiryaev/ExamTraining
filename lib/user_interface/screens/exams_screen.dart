@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exam_training/data/daos/exam_dao.dart';
+import 'package:exam_training/data/daos/exams_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/_components.dart';
@@ -13,9 +13,9 @@ class ExamsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final examDao = Provider.of<ExamDao>(context, listen: false);
+    final examDao = Provider.of<ExamsDao>(context, listen: false);
     return StreamBuilder<QuerySnapshot>(
-      stream: examDao.getExamStream(),
+      stream: examDao.stream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text('Произошла ошибка:${snapshot.error}'));

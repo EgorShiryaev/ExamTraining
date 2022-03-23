@@ -1,9 +1,6 @@
-import 'package:exam_training/data/models/_models.dart';
-import 'package:exam_training/user_interface/components/custom_text_field.dart';
-import 'package:exam_training/user_interface/components/edit_tickets_screen/ticket_swipeable_component.dart';
 import 'package:flutter/material.dart';
-
-import '../components/custom_alert_dialog.dart';
+import '../../data/models/_models.dart';
+import '../components/_components.dart';
 
 class EditTicketsScreen extends StatefulWidget {
   final List<ExamTicket> tickets;

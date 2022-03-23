@@ -2,8 +2,8 @@ import 'package:exam_training/data/models/_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../screens/answer_exam_ticket_screen.dart';
-import '../custom_dialog_button.dart';
+import '../../screens/_screens.dart';
+import '../_components.dart';
 
 class TicketSwipeableComponent extends StatelessWidget {
   final int index;

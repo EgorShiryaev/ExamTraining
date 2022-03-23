@@ -1,4 +1,4 @@
-import 'package:exam_training/data/daos/exam_dao.dart';
+import 'package:exam_training/data/daos/exams_dao.dart';
 import 'package:exam_training/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +20,9 @@ class ExamTrainingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<ExamDao>(
+        Provider<ExamsDao>(
           lazy: false,
-          create: (_) => ExamDao(),
+          create: (_) => ExamsDao(),
         ),
       ],
       child: MaterialApp(
