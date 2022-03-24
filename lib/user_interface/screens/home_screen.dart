@@ -1,4 +1,5 @@
 import 'package:exam_training/data/daos/exams_dao.dart';
+import 'package:exam_training/data/daos/tasks_dao.dart';
 import 'package:exam_training/user_interface/screens/tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(
                 _currentIndex == 2 ? Icons.edit_rounded : Icons.add_rounded),
             onPressed: _currentIndex == 2
-                ? _navigateToEditProfilePage
+                ? _navigateToEditProfileScreen
                 : _currentIndex == 0
-                    ? _navigateToExamInfoPage
-                    : _navigateToTaskInfoPage,
+                    ? _navigateToCreateExamScreen
+                    : _navigateCreateTaskScreen,
           )
         ],
       ),
@@ -51,19 +52,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _navigateToExamInfoPage() {
+  _navigateToCreateExamScreen() {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            ExamInfoScreen(onSave: Provider.of<ExamsDao>(context).add),
+            CreateExamScreen(onSave: Provider.of<ExamsDao>(context).add),
       ),
     );
   }
 
-  _navigateToTaskInfoPage() {}
+  _navigateCreateTaskScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            CreateTaskScreen(onSave: Provider.of<TasksDao>(context).add),
+      ),
+    );
+  }
 
-  _navigateToEditProfilePage() {}
+  _navigateToEditProfileScreen() {}
 }
 
 final _pages = [

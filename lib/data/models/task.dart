@@ -46,7 +46,7 @@ class Task {
       'dateTime': dateTime,
       'description': description,
       'completed': completed,
-      'importance': importance,
+      'importance': importance.index,
       'subtasks': subtasks.map((e) => e.toJson()),
     };
   }

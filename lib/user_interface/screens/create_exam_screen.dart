@@ -5,21 +5,21 @@ import 'package:intl/intl.dart';
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
 
-class ExamInfoScreen extends StatefulWidget {
+class CreateExamScreen extends StatefulWidget {
   final Exam? exam;
   final Function(Exam ex) onSave;
 
-  const ExamInfoScreen({
+  const CreateExamScreen({
     Key? key,
     required this.onSave,
     this.exam,
   }) : super(key: key);
 
   @override
-  State<ExamInfoScreen> createState() => _ExamInfoScreenState();
+  State<CreateExamScreen> createState() => _CreateExamScreenState();
 }
 
-class _ExamInfoScreenState extends State<ExamInfoScreen> {
+class _CreateExamScreenState extends State<CreateExamScreen> {
   final titleController = TextEditingController();
   final locationController = TextEditingController();
   DateTime? date;
@@ -216,6 +216,9 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     final now = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
+      cancelText: 'Отмена',
+      confirmText: 'Готово',
+      helpText: 'Выберите дату',
       initialDate: date == null ? now : date!,
       firstDate: now.subtract(const Duration(days: 365)),
       lastDate: now.add(const Duration(days: 365)),
@@ -271,8 +274,7 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     return titleController.text.isNotEmpty &&
         locationController.text.isNotEmpty &&
         date != null &&
-        time != null &&
-        examTickets.isNotEmpty;
+        time != null;
   }
 
   _onWarning() {
@@ -280,17 +282,14 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     if (titleController.text.isEmpty) {
       errors.add('"Название экзамена"');
     }
-    if (locationController.text.isEmpty) {
-      errors.add('"Место экзамена"');
-    }
     if (date == null) {
       errors.add('"Дата экзамена"');
     }
     if (time == null) {
       errors.add('"Время экзамена"');
     }
-    if (examTickets.isEmpty) {
-      errors.add('"Билеты"');
+    if (locationController.text.isEmpty) {
+      errors.add('"Место экзамена"');
     }
 
     if (errors.isNotEmpty) {

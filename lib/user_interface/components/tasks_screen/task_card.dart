@@ -112,43 +112,7 @@ class _TaskCardState extends State<TaskCard> {
   _onEdit(context) {}
 
   _onDelete(context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            "Вы действительно хотите удалить задачу?",
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: Theme.of(context).textTheme.subtitle2,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 25,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          actionsAlignment: MainAxisAlignment.spaceAround,
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomDialogButton(
-                  title: 'Удалить',
-                  onTap: _onDeleteModal,
-                  textColor: const Color(0xFFD90030),
-                ),
-                CustomDialogButton(
-                  title: 'Отмена',
-                  onTap: _onCancelModal,
-                  textColor: Colors.blue,
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
+    
   }
 
   _onDeleteModal() {
@@ -164,3 +128,43 @@ class _TaskCardState extends State<TaskCard> {
   String _upperFirst(String text) =>
       '${text[0].toUpperCase()}${text.substring(1)}';
 }
+
+
+// onDelete
+// showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       title: const Text(
+    //         "Вы действительно хотите удалить задачу?",
+    //         textAlign: TextAlign.center,
+    //       ),
+    //       titleTextStyle: Theme.of(context).textTheme.subtitle2,
+    //       contentPadding: const EdgeInsets.symmetric(
+    //         vertical: 15,
+    //         horizontal: 25,
+    //       ),
+    //       shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(20),
+    //       ),
+    //       actionsAlignment: MainAxisAlignment.spaceAround,
+    //       actions: [
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //           children: [
+    //             CustomDialogButton(
+    //               title: 'Удалить',
+    //               onTap: _onDeleteModal,
+    //               textColor: const Color(0xFFD90030),
+    //             ),
+    //             CustomDialogButton(
+    //               title: 'Отмена',
+    //               onTap: _onCancelModal,
+    //               textColor: Colors.blue,
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );

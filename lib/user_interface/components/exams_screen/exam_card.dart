@@ -115,7 +115,7 @@ class _ExamCardState extends State<ExamCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ExamInfoScreen(
+        builder: (context) => CreateExamScreen(
           onSave: Provider.of<ExamsDao>(context).update,
           exam: widget.exam,
         ),
