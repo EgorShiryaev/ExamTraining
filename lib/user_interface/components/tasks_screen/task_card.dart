@@ -31,83 +31,96 @@ class _TaskCardState extends State<TaskCard> {
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.5,
+        extentRatio: 0.33,
         children: [
-          SlidableAction(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            icon: Icons.question_answer_rounded,
-            onPressed: _onTap,
-          ),
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.edit_rounded,
             onPressed: _onEdit,
           ),
           SlidableAction(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              icon: Icons.delete,
-              onPressed: _onDelete),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            icon: Icons.delete,
+            onPressed: _onDelete,
+          ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Transform.scale(
-                scale: 1.4,
-                child: Checkbox(
-                  shape: const CircleBorder(),
-                  side: BorderSide(
-                    color: getColorForImportance(widget.task.importance),
+      child: Builder(builder: (cntx) {
+        return GestureDetector(
+          onTap: _onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Transform.scale(
+                    scale: 1.4,
+                    child: Checkbox(
+                      shape: const CircleBorder(),
+                      side: BorderSide(
+                        color: getColorForImportance(widget.task.importance),
+                      ),
+                      value: widget.task.completed,
+                      onChanged: (tr) {},
+                    ),
                   ),
-                  value: widget.task.completed,
-                  onChanged: (tr) {},
-                ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 121,
+                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.task.title,
+                          style: Theme.of(context).textTheme.subtitle1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: heightDivider),
+                        Text(
+                          '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
+                          style: Theme.of(context).textTheme.overline,
+                        ),
+                        SizedBox(height: heightDivider),
+                        Text(
+                          widget.task.description,
+                          style: Theme.of(context).textTheme.overline,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => _onIconTap(cntx),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 22,
+                    ),
+                  )
+                ],
               ),
-              Container(
-                width: MediaQuery.of(context).size.width - 95,
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.task.title,
-                      style: Theme.of(context).textTheme.subtitle1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: heightDivider),
-                    Text(
-                      '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
-                      style: Theme.of(context).textTheme.overline,
-                    ),
-                    SizedBox(height: heightDivider),
-                    Text(
-                      widget.task.description,
-                      style: Theme.of(context).textTheme.overline,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 22,
-              )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
-  _onTap(context) {}
+  _onIconTap(buildCtx) {
+    final slidable = Slidable.of(buildCtx)!;
+    if (slidable.actionPaneType.value == ActionPaneType.none) {
+      slidable.openEndActionPane();
+    } else {
+      slidable.close();
+    }
+  }
+
+  _onTap() {}
 
   _onEdit(context) {
     Navigator.push(
