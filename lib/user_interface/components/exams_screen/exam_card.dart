@@ -31,6 +31,7 @@ class _ExamCardState extends State<ExamCard> {
     final widthScreen = MediaQuery.of(context).size.width;
     final color = getColorForImportance(widget.exam.importance);
     return Slidable(
+      key: UniqueKey(),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         extentRatio: 0.5,
@@ -51,54 +52,68 @@ class _ExamCardState extends State<ExamCard> {
               onPressed: _onDelete),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            gradient: LinearGradient(
-              colors: [color, color, Colors.white, Colors.white],
-              stops: [0.0, 7.5 / widthScreen, 7.5 / widthScreen, 1.0],
+      child: Builder(builder: (buildContext) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              gradient: LinearGradient(
+                colors: [color, color, Colors.white, Colors.white],
+                stops: [0.0, 7.5 / widthScreen, 7.5 / widthScreen, 1.0],
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: MediaQuery.of(buildContext).size.width - 73,
+                  padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.exam.title,
+                        style: Theme.of(buildContext).textTheme.subtitle1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: heightDivider),
+                      Text(
+                        '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
+                        style: Theme.of(buildContext).textTheme.subtitle2,
+                      ),
+                      SizedBox(height: heightDivider),
+                      Text(
+                        widget.exam.location,
+                        style: Theme.of(buildContext).textTheme.subtitle2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  onPressed: () => _onIconTap(buildContext),
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 22,
+                  ),
+                )
+              ],
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width - 47,
-                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.exam.title,
-                      style: Theme.of(context).textTheme.subtitle1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: heightDivider),
-                    Text(
-                      '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                    SizedBox(height: heightDivider),
-                    Text(
-                      widget.exam.location,
-                      style: Theme.of(context).textTheme.subtitle2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 22,
-              )
-            ],
-          ),
-        ),
-      ),
+        );
+      }),
     );
+  }
+
+  _onIconTap(buildCtx) {
+    final slidable = Slidable.of(buildCtx)!;
+    if (slidable.actionPaneType.value == ActionPaneType.none) {
+      slidable.openEndActionPane();
+    } else {
+      slidable.close();
+    }
   }
 
   _onShowExamTickets(context) {
