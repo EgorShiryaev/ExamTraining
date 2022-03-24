@@ -30,9 +30,6 @@ class AppTheme {
       subtitle1: GoogleFonts.roboto(
         fontSize: 24.0,
       ),
-      subtitle2: GoogleFonts.roboto(
-        fontSize: 18.0,
-      ),
       caption: GoogleFonts.roboto(
         color: Colors.black,
         fontSize: 16,
@@ -42,6 +39,10 @@ class AppTheme {
         fontSize: 20,
       ),
       overline: GoogleFonts.roboto(
+        fontSize: 18,
+      ),
+      bodyText2: GoogleFonts.roboto(
+        color: Colors.grey,
         fontSize: 18,
       ),
     ),

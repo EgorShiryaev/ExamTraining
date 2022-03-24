@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ExamQuestionComponent extends StatelessWidget {
+class ExamTicketWidget extends StatelessWidget {
   final int index;
   final String question;
-  const ExamQuestionComponent({
+  const ExamTicketWidget({
     Key? key,
     required this.index,
     required this.question,

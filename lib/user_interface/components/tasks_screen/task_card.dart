@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/_models.dart';
 import '../../../utils/get_color_for_importance.dart';
+import '../../screens/create_task_screen.dart';
 import '../_components.dart';
 
 class TaskCard extends StatefulWidget {
@@ -35,7 +36,7 @@ class _TaskCardState extends State<TaskCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.question_answer_rounded,
-            onPressed: _onShowExamTickets,
+            onPressed: _onTap,
           ),
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -84,12 +85,12 @@ class _TaskCardState extends State<TaskCard> {
                     SizedBox(height: heightDivider),
                     Text(
                       '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
                       widget.task.description,
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -106,9 +107,19 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  _onShowExamTickets(context) {}
+  _onTap(context) {}
 
-  _onEdit(context) {}
+  _onEdit(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreateTaskScreen(
+          onSave: Provider.of<TasksDao>(context).update,
+          task: widget.task,
+        ),
+      ),
+    );
+  }
 
   _onDelete(context) {
     showDialog(

@@ -1,6 +1,5 @@
 import 'package:exam_training/data/daos/exams_dao.dart';
 import 'package:exam_training/data/daos/tasks_dao.dart';
-import 'package:exam_training/user_interface/screens/tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '_screens.dart';

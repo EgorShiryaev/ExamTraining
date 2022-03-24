@@ -1,19 +1,16 @@
-// Виджеты edit_tickets_screen
-export 'ticket_card.dart';
-
-// Виджеты exam_info_screen
-export 'exam_tickets_view.dart';
-
-// Виджеты exams_screen
-export 'empty_list_widget.dart';
 export 'exams_screen/exam_card.dart';
 export 'exams_screen/exam_list_view.dart';
-
-// Виджеты которые используются на нескольких экранах
+export 'tasks_screen/task_card.dart';
+export 'tasks_screen/task_list_view.dart';
 export 'custom_alert_dialog.dart';
 export 'custom_dialog_button.dart';
 export 'custom_rounded_button.dart';
 export 'custom_text_field.dart';
-export 'exam_question_component.dart';
+export 'empty_list_widget.dart';
+export 'exam_ticket_widget.dart';
+export 'exam_tickets_view.dart';
 export 'importance_select_view.dart';
 export 'outlined_button_with_icon.dart';
+export 'subtask_widget.dart';
+export 'subtasks_view.dart';
+export 'ticket_card.dart';

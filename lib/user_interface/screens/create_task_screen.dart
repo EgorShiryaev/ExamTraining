@@ -76,7 +76,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
-           physics: const ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
           children: [
@@ -103,10 +103,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               selectedImportance: selectedImportance,
               setImportance: _selectImportance,
             ),
-            // ExamTicketsView(
-            //   examTickets: subtasks,
-            //   setTickets: _setExamTickets,
-            // ),
+            SubtasksView(
+              subtasks: subtasks,
+              add: addSubtask,
+              delete: deleteSubtask,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 20,
               height: 60,
@@ -119,6 +120,16 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         ),
       ),
     );
+  }
+
+  addSubtask(String title) {
+    subtasks.add(Subtask(title: title, completed: false));
+    setState(() {});
+  }
+
+  deleteSubtask(String title) {
+    subtasks.removeWhere((element) => element.title == title);
+    setState(() {});
   }
 
   bool _checkNeedSave() {
@@ -203,10 +214,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         importance: selectedImportance,
         subtasks: subtasks,
       );
+      task.reference = widget.task?.reference;
       widget.onSave(task);
-      setState(() {
-        isSaved = true;
-      });
+      setState(() => isSaved = true);
       Navigator.pop(context);
     } else {
       _onWarning();

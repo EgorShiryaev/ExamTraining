@@ -23,48 +23,45 @@ class ExamTicketsView extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navigateToExamTicket(context),
       child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Theme.of(context).bottomAppBarColor,
-            border: Border.all(color: Colors.black),
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Column(
-            children: List<Widget>.generate(
-              examTickets.length > 5 ? 5 : examTickets.length,
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        decoration: BoxDecoration(
+          color: Theme.of(context).bottomAppBarColor,
+          border: Border.all(color: Colors.black),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text(
+                'Билеты:',
+                style: Theme.of(context).textTheme.caption,
+              ),
+            ),
+            ...List<Widget>.generate(
+              examTickets.length > 5 ? 5 * 2 : examTickets.length * 2 - 1,
               (index) {
-                final question = examTickets[index].question;
-                if (index == 0) {
-                  return _createExamQuestionComponent(index, question);
-                } else if (index == 4 && examTickets.length > 5) {
-                  return Column(
-                    children: [
-                      SizedBox(height: _separatorHeight),
-                      _createExamQuestionComponent(index, question),
-                      Text('. . .',
-                          style: Theme.of(context).textTheme.subtitle2),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      SizedBox(height: _separatorHeight),
-                      _createExamQuestionComponent(index, question),
-                    ],
+                if (index == 9 && examTickets.length > 5) {
+                  return Center(
+                    child: Text(
+                      '. . .',
+                      style: Theme.of(context).textTheme.overline,
+                    ),
                   );
                 }
+                if (index % 2 == 1) {
+                  return const SizedBox(height: 10);
+                }
+                return ExamTicketWidget(
+                  index: index ~/ 2,
+                  question: examTickets[index ~/ 2].question,
+                );
               },
             ),
-          )),
-    );
-  }
-
-  final _separatorHeight = 10.0;
-
-  _createExamQuestionComponent(int index, String question) {
-    return ExamQuestionComponent(
-      index: index,
-      question: question,
+          ],
+        ),
+      ),
     );
   }
 

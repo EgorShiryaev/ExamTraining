@@ -79,12 +79,12 @@ class _ExamCardState extends State<ExamCard> {
                     SizedBox(height: heightDivider),
                     Text(
                       '${_upperFirst(DateFormat.yMMMEd().format(widget.exam.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.exam.dateTime.toDate()).toString()}',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
                       widget.exam.location,
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -105,8 +105,7 @@ class _ExamCardState extends State<ExamCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            TicketsScreen(examTickets: widget.exam.tickets),
+        builder: (context) => TicketsScreen(examTickets: widget.exam.tickets),
       ),
     );
   }
@@ -127,7 +126,7 @@ class _ExamCardState extends State<ExamCard> {
     showDialog(
       context: context,
       builder: (context) {
-        return  CustomAlertDialog(
+        return CustomAlertDialog(
           title: "Вы действительно хотите удалить экзамен?",
           actionTitle: 'Да',
           actionFunction: _onDeleteModal,

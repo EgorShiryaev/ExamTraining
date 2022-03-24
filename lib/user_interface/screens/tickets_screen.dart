@@ -60,7 +60,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                   isExpanded: examTickets[index].isExpanded,
                   headerBuilder: (BuildContext context, bool isExpanded) {
                     return ListTile(
-                      title: ExamQuestionComponent(
+                      title: ExamTicketWidget(
                         index: index,
                         question: examTickets[index].headerValue,
                       ),
