@@ -47,7 +47,7 @@ class Task {
       'description': description,
       'completed': completed,
       'importance': importance.index,
-      'subtasks': subtasks.map((e) => e.toJson()),
+      'subtasks': subtasks.map((e) => e.toJson()).toList(),
     };
   }
 }

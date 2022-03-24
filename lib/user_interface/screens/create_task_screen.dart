@@ -76,6 +76,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
+           physics: const ClampingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
           children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/_models.dart';
-import '../../screens/_screens.dart';
-import '../_components.dart';
+import '../../data/models/_models.dart';
+import '../screens/_screens.dart';
+import '_components.dart';
 
 class ExamTicketsView extends StatelessWidget {
   final List<ExamTicket> examTickets;
@@ -72,7 +72,7 @@ class ExamTicketsView extends StatelessWidget {
     final newTickets = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditTicketsScreen(
+        builder: (context) => CreateTicketsScreen(
           tickets: examTickets,
         ),
       ),

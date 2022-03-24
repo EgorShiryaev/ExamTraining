@@ -76,6 +76,7 @@ class _CreateExamScreenState extends State<CreateExamScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
+           physics: const ClampingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
           children: [

@@ -29,7 +29,10 @@ class TasksScreen extends StatelessWidget {
             tasks.sort((a, b) => a.dateTime.compareTo(b.dateTime));
             return TaskListView(tasks: tasks);
           } else {
-            return const EmptyExamsWidget();
+            return const EmptyListWidget(
+              text:
+                  'Задачи не найдены.\nДля добавления задачи нажмите кнопку "Добавить" в правом верхнем углу.',
+            );
           }
         } else {
           return const Center(child: CircularProgressIndicator.adaptive());

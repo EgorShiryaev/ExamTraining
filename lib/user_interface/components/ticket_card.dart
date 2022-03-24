@@ -2,15 +2,15 @@ import 'package:exam_training/data/models/_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../screens/_screens.dart';
-import '../_components.dart';
+import '../screens/_screens.dart';
+import '_components.dart';
 
-class TicketSwipeableComponent extends StatelessWidget {
+class TicketCard extends StatelessWidget {
   final int index;
   final ExamTicket ticket;
   final Function(ExamTicket) onDelete;
   final Function(ExamTicket, int) onEdit;
-  const TicketSwipeableComponent({
+  const TicketCard({
     Key? key,
     required this.index,
     required this.ticket,
@@ -103,42 +103,19 @@ class TicketSwipeableComponent extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            "Вы действительно хотите удалить экзаменационный билет?",
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: Theme.of(context).textTheme.subtitle1,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 25,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          actionsAlignment: MainAxisAlignment.spaceAround,
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomDialogButton(
-                  title: 'Удалить',
-                  onTap: () {
-                    onDelete(ticket);
-                    Navigator.pop(context);
-                  },
-                  textColor: const Color(0xFFD90030),
-                ),
-                CustomDialogButton(
-                  title: 'Отмена',
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  textColor: Colors.blue,
-                ),
-              ],
-            ),
-          ],
+        return CustomAlertDialog(
+          title: "Вы действительно хотите удалить экзаменационный билет?",
+          actionTitle: 'Да',
+          actionFunction: () {
+            onDelete(ticket);
+            Navigator.pop(context);
+          },
+          actionColor: const Color(0xFFD90030),
+          cancelTitle: 'Нет',
+          cancelColor: Colors.blue,
+          cancelFunction: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
