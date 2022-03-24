@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/_models.dart';
 import '../../../utils/get_color_for_importance.dart';
+import '../../screens/create_task_screen.dart';
 import '../_components.dart';
 
 class TaskCard extends StatefulWidget {
@@ -27,7 +28,6 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
-
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -36,7 +36,7 @@ class _TaskCardState extends State<TaskCard> {
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: Icons.question_answer_rounded,
-            onPressed: _onShowExamTickets,
+            onPressed: _onTap,
           ),
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -85,12 +85,12 @@ class _TaskCardState extends State<TaskCard> {
                     SizedBox(height: heightDivider),
                     Text(
                       '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                     ),
                     SizedBox(height: heightDivider),
                     Text(
                       widget.task.description,
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.overline,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -107,45 +107,32 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  _onShowExamTickets(context) {}
+  _onTap(context) {}
 
-  _onEdit(context) {}
+  _onEdit(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreateTaskScreen(
+          onSave: Provider.of<TasksDao>(context).update,
+          task: widget.task,
+        ),
+      ),
+    );
+  }
 
   _onDelete(context) {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            "Вы действительно хотите удалить задачу?",
-            textAlign: TextAlign.center,
-          ),
-          titleTextStyle: Theme.of(context).textTheme.subtitle2,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 25,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          actionsAlignment: MainAxisAlignment.spaceAround,
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomDialogButton(
-                  title: 'Удалить',
-                  onTap: _onDeleteModal,
-                  textColor: const Color(0xFFD90030),
-                ),
-                CustomDialogButton(
-                  title: 'Отмена',
-                  onTap: _onCancelModal,
-                  textColor: Colors.blue,
-                ),
-              ],
-            ),
-          ],
+        return CustomAlertDialog(
+          title: "Вы действительно хотите удалить экзамен?",
+          actionTitle: 'Да',
+          actionFunction: _onDeleteModal,
+          actionColor: const Color(0xFFD90030),
+          cancelTitle: 'Нет',
+          cancelColor: Colors.blue,
+          cancelFunction: _onCancelModal,
         );
       },
     );

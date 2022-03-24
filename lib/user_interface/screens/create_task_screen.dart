@@ -5,65 +5,65 @@ import 'package:intl/intl.dart';
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
 
-class ExamInfoScreen extends StatefulWidget {
-  final Exam? exam;
-  final Function(Exam ex) onSave;
+class CreateTaskScreen extends StatefulWidget {
+  final Function(Task task) onSave;
+  final Task? task;
 
-  const ExamInfoScreen({
+  const CreateTaskScreen({
     Key? key,
     required this.onSave,
-    this.exam,
+    this.task,
   }) : super(key: key);
 
   @override
-  State<ExamInfoScreen> createState() => _ExamInfoScreenState();
+  State<CreateTaskScreen> createState() => _CreateTaskScreenState();
 }
 
-class _ExamInfoScreenState extends State<ExamInfoScreen> {
+class _CreateTaskScreenState extends State<CreateTaskScreen> {
   final titleController = TextEditingController();
-  final locationController = TextEditingController();
+  final descriptionController = TextEditingController();
   DateTime? date;
   TimeOfDay? time;
   Importance selectedImportance = Importance.low;
-  List<ExamTicket> examTickets = [];
+  List<Subtask> subtasks = [];
 
   bool isSaved = false;
   bool dontSaveExam = false;
 
-  String dateText = 'Выбрать дату экзамену';
-  String timeText = 'Выбрать время экзамена';
+  String dateText = 'Выбрать дату задачи';
+  String timeText = 'Выбрать время задачи';
 
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
-    if (widget.exam != null) {
-      titleController.text = widget.exam!.title;
-      locationController.text = widget.exam!.location;
-      date = widget.exam!.dateTime.toDate();
-      dateText = DateFormat.yMMMMd('ru').format(widget.exam!.dateTime.toDate());
+    if (widget.task != null) {
+      titleController.text = widget.task!.title;
+      descriptionController.text = widget.task!.description;
+      date = widget.task!.dateTime.toDate();
+      dateText = DateFormat.yMMMMd('ru').format(widget.task!.dateTime.toDate());
       time = TimeOfDay(
-        hour: widget.exam!.dateTime.toDate().hour,
-        minute: widget.exam!.dateTime.toDate().minute,
+        hour: widget.task!.dateTime.toDate().hour,
+        minute: widget.task!.dateTime.toDate().minute,
       );
       timeText = DateFormat.Hm('ru').format(
         DateTime(
           2022,
           1,
           1,
-          widget.exam!.dateTime.toDate().hour,
-          widget.exam!.dateTime.toDate().minute,
+          widget.task!.dateTime.toDate().hour,
+          widget.task!.dateTime.toDate().minute,
         ),
       );
-      selectedImportance = widget.exam!.importance;
-      examTickets.addAll(widget.exam!.tickets);
+      selectedImportance = widget.task!.importance;
+      subtasks.addAll(widget.task!.subtasks);
     }
   }
 
   @override
   void dispose() async {
     titleController.dispose();
-    locationController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
@@ -76,12 +76,13 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
+          physics: const ClampingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
           children: [
             CustomTextField(
               controller: titleController,
-              label: 'Название экзамена',
+              label: 'Название задачи',
             ),
             OutlinedButtonWithIcon(
               icon: Icons.today_rounded,
@@ -94,16 +95,18 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
               onTap: _selectTime,
             ),
             CustomTextField(
-              controller: locationController,
-              label: 'Место экзамена',
+              controller: descriptionController,
+              label: 'Описание экзамена',
+              maxLines: 3,
             ),
             ImportanceSelectView(
               selectedImportance: selectedImportance,
               setImportance: _selectImportance,
             ),
-            ExamTicketsView(
-              examTickets: examTickets,
-              setTickets: _setExamTickets,
+            SubtasksView(
+              subtasks: subtasks,
+              add: addSubtask,
+              delete: deleteSubtask,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 20,
@@ -119,47 +122,56 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     );
   }
 
+  addSubtask(String title) {
+    subtasks.add(Subtask(title: title, completed: false));
+    setState(() {});
+  }
+
+  deleteSubtask(String title) {
+    subtasks.removeWhere((element) => element.title == title);
+    setState(() {});
+  }
+
   bool _checkNeedSave() {
-    if (widget.exam == null) {
+    if (widget.task == null) {
       if (titleController.text.isNotEmpty ||
-          locationController.text.isNotEmpty ||
+          descriptionController.text.isNotEmpty ||
           date != null ||
           time != null ||
           selectedImportance != Importance.low ||
-          examTickets.isNotEmpty) {
+          subtasks.isNotEmpty) {
         return true;
       }
       return false;
     } else {
-      if (titleController.text != widget.exam!.title ||
-          locationController.text != widget.exam!.location ||
-          date! != widget.exam!.dateTime.toDate() ||
-          selectedImportance != widget.exam!.importance) {
+      if (titleController.text != widget.task!.title ||
+          descriptionController.text != widget.task!.description ||
+          date! != widget.task!.dateTime.toDate() ||
+          selectedImportance != widget.task!.importance) {
         return true;
       }
 
-      final dateTimeInDate = widget.exam!.dateTime.toDate();
+      final dateTimeInDate = widget.task!.dateTime.toDate();
       if (time!.hour != dateTimeInDate.hour ||
           time!.minute != dateTimeInDate.minute) {
         return true;
       }
 
-      if (examTickets.length != widget.exam!.tickets.length) {
+      if (subtasks.length != widget.task!.subtasks.length) {
         return true;
       }
-      bool ticketsIsChanged = false;
-      final startExamTickets = widget.exam!.tickets;
-      for (var i = 0; i < examTickets.length; i++) {
+      bool subtasksIsChanged = false;
+      final startSubTasks = widget.task!.subtasks;
+      for (var i = 0; i < subtasks.length; i++) {
         try {
-          if (examTickets[i].answer != startExamTickets[i].answer ||
-              examTickets[i].question != startExamTickets[i].question) {
-            ticketsIsChanged = true;
+          if (subtasks[i].title != startSubTasks[i].title) {
+            subtasksIsChanged = true;
           }
         } catch (e) {
-          ticketsIsChanged = true;
+          subtasksIsChanged = true;
         }
       }
-      return ticketsIsChanged;
+      return subtasksIsChanged;
     }
   }
 
@@ -186,7 +198,8 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   _onSave(context) {
     if (_validate()) {
-      final exam = Exam(
+      final task = Task(
+        completed: widget.task?.completed ?? false,
         title: titleController.text,
         dateTime: Timestamp.fromDate(
           DateTime(
@@ -197,15 +210,13 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
             time!.minute,
           ),
         ),
-        location: locationController.text,
+        description: descriptionController.text,
         importance: selectedImportance,
-        tickets: examTickets,
+        subtasks: subtasks,
       );
-      exam.reference = widget.exam?.reference;
-      widget.onSave(exam);
-      setState(() {
-        isSaved = true;
-      });
+      task.reference = widget.task?.reference;
+      widget.onSave(task);
+      setState(() => isSaved = true);
       Navigator.pop(context);
     } else {
       _onWarning();
@@ -219,6 +230,9 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
       initialDate: date == null ? now : date!,
       firstDate: now.subtract(const Duration(days: 365)),
       lastDate: now.add(const Duration(days: 365)),
+      cancelText: 'Отмена',
+      confirmText: 'Готово',
+      helpText: 'Выберите дату',
     );
     if (newDate != null) {
       setState(() {
@@ -250,9 +264,9 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
     setState(() => selectedImportance = newImportance);
   }
 
-  _setExamTickets(List<ExamTicket> newTickets) {
-    setState(() => examTickets = newTickets);
-  }
+  // _setExamTickets(List<ExamTicket> newTickets) {
+  //   setState(() => subtasks = newTickets);
+  // }
 
   Future<bool> _onWillPop() async {
     if (_checkNeedSave()) {
@@ -269,28 +283,24 @@ class _ExamInfoScreenState extends State<ExamInfoScreen> {
 
   bool _validate() {
     return titleController.text.isNotEmpty &&
-        locationController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
         date != null &&
-        time != null &&
-        examTickets.isNotEmpty;
+        time != null;
   }
 
   _onWarning() {
     List<String> errors = [];
     if (titleController.text.isEmpty) {
-      errors.add('"Название экзамена"');
+      errors.add('"Название задачи"');
     }
-    if (locationController.text.isEmpty) {
-      errors.add('"Место экзамена"');
+    if (descriptionController.text.isEmpty) {
+      errors.add('"Описание задачи"');
     }
     if (date == null) {
-      errors.add('"Дата экзамена"');
+      errors.add('"Дата задачи"');
     }
     if (time == null) {
-      errors.add('"Время экзамена"');
-    }
-    if (examTickets.isEmpty) {
-      errors.add('"Билеты"');
+      errors.add('"Время задачи"');
     }
 
     if (errors.isNotEmpty) {

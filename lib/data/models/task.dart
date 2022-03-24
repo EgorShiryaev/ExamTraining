@@ -46,8 +46,8 @@ class Task {
       'dateTime': dateTime,
       'description': description,
       'completed': completed,
-      'importance': importance,
-      'subtasks': subtasks.map((e) => e.toJson()),
+      'importance': importance.index,
+      'subtasks': subtasks.map((e) => e.toJson()).toList(),
     };
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/_models.dart';
+import '../../data/models/_models.dart';
 
 class ImportanceSelectView extends StatelessWidget {
   final Importance selectedImportance;
@@ -42,11 +42,7 @@ class ImportanceSelectView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildChoiceChip(
-                  Importance.low,
-                  'Низкая',
-                  context,
-                ),
+                _buildChoiceChip(Importance.low, 'Низкая', context),
                 _buildChoiceChip(Importance.medium, 'Средняя', context),
                 _buildChoiceChip(Importance.high, 'Высокая', context),
               ],

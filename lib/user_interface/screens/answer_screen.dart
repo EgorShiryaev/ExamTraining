@@ -49,7 +49,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     SizedBox(
                       child: Text(
                         widget.ticket.question.replaceFirst('!!! ', ''),
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.overline,
                       ),
                     )
                   ],

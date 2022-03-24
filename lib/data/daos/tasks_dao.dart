@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exam_training/data/daos/_interface_dao.dart';
 import 'package:exam_training/data/models/task.dart';
@@ -26,6 +28,8 @@ class TasksDao implements InterfaceDao<Task> {
   get stream => _collection.snapshots();
 
   @override
-  void update(Task task) =>
-      _collection.doc(task.reference!.id).set(task.toJson());
+  void update(Task task) {
+    log(task.reference.toString());
+    _collection.doc(task.reference!.id).set(task.toJson());
+  }
 }

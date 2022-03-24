@@ -26,7 +26,10 @@ class ExamsScreen extends StatelessWidget {
             exams.sort((a, b) => a.dateTime.compareTo(b.dateTime));
             return ExamListView(exams: exams);
           } else {
-            return const EmptyExamsWidget();
+            return const EmptyListWidget(
+              text:
+                  'Экзамены не найдены.\nДля добавления экзаменов нажмите кнопку "Добавить" в правом верхнем углу.',
+            );
           }
         } else {
           return const Center(child: CircularProgressIndicator.adaptive());

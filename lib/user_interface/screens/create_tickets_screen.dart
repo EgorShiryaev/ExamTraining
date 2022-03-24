@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import '../../data/models/_models.dart';
 import '../components/_components.dart';
 
-class EditTicketsScreen extends StatefulWidget {
+class CreateTicketsScreen extends StatefulWidget {
   final List<ExamTicket> tickets;
-  const EditTicketsScreen({
+  const CreateTicketsScreen({
     Key? key,
     required this.tickets,
   }) : super(key: key);
 
   @override
-  State<EditTicketsScreen> createState() => _EditTicketsScreenState();
+  State<CreateTicketsScreen> createState() => _CreateTicketsScreenState();
 }
 
-class _EditTicketsScreenState extends State<EditTicketsScreen> {
+class _CreateTicketsScreenState extends State<CreateTicketsScreen> {
   final questionController = TextEditingController();
   final List<ExamTicket> _tickets = [];
 
@@ -63,6 +63,7 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
                 ),
               )
             : SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Padding(
@@ -71,7 +72,7 @@ class _EditTicketsScreenState extends State<EditTicketsScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _tickets.length,
-                    itemBuilder: (context, index) => TicketSwipeableComponent(
+                    itemBuilder: (context, index) => TicketCard(
                       index: index,
                       ticket: _tickets[index],
                       onDelete: _onDelete,
