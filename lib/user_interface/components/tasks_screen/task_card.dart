@@ -1,10 +1,13 @@
 import 'package:exam_training/data/daos/tasks_dao.dart';
+import 'package:exam_training/user_interface/components/tasks_screen/task_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/_models.dart';
 import '../../../utils/get_color_for_importance.dart';
+import '../../../utils/upper_first.dart';
 import '../../screens/create_task_screen.dart';
 import '../_components.dart';
 
@@ -63,11 +66,12 @@ class _TaskCardState extends State<TaskCard> {
                     scale: 1.4,
                     child: Checkbox(
                       shape: const CircleBorder(),
-                      side: BorderSide(
-                        color: getColorForImportance(widget.task.importance),
+                      fillColor: MaterialStateColor.resolveWith(
+                        (states) =>
+                            getColorForImportance(widget.task.importance),
                       ),
                       value: widget.task.completed,
-                      onChanged: (tr) {},
+                      onChanged: _changeCompletedTask,
                     ),
                   ),
                   Container(
@@ -78,19 +82,31 @@ class _TaskCardState extends State<TaskCard> {
                       children: [
                         Text(
                           widget.task.title,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.subtitle1?.apply(
+                                decoration: widget.task.completed
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
                           overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: heightDivider),
-                        Text(
-                          '${_upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()).toString())} ${DateFormat.Hm().format(widget.task.dateTime.toDate()).toString()}',
-                          style: Theme.of(context).textTheme.overline,
                         ),
                         SizedBox(height: heightDivider),
                         Text(
                           widget.task.description,
-                          style: Theme.of(context).textTheme.overline,
+                          style: Theme.of(context).textTheme.overline?.apply(
+                                decoration: widget.task.completed
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
                           overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: heightDivider),
+                        Text(
+                          '${upperFirst(DateFormat.yMMMEd().format(widget.task.dateTime.toDate()))} ${DateFormat.Hm().format(widget.task.dateTime.toDate())}',
+                          style: Theme.of(context).textTheme.overline?.apply(
+                                decoration: widget.task.completed
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
                         ),
                       ],
                     ),
@@ -111,6 +127,12 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
+  _changeCompletedTask(_) {
+    setState(() => widget.task.changeComplete());
+    Provider.of<TasksDao>(context, listen: false)
+        .updateTaskIsCompleted(widget.task);
+  }
+
   _onIconTap(buildCtx) {
     final slidable = Slidable.of(buildCtx)!;
     if (slidable.actionPaneType.value == ActionPaneType.none) {
@@ -120,7 +142,14 @@ class _TaskCardState extends State<TaskCard> {
     }
   }
 
-  _onTap() {}
+  _onTap() async {
+    await showCupertinoModalBottomSheet(
+      topRadius: const Radius.circular(20),
+      context: context,
+      builder: (context) => TaskModal(task: widget.task),
+    );
+    Provider.of<TasksDao>(context, listen: false).updateSubtasks(widget.task);
+  }
 
   _onEdit(context) {
     Navigator.push(
@@ -160,7 +189,4 @@ class _TaskCardState extends State<TaskCard> {
   _onCancelModal() {
     Navigator.pop(context);
   }
-
-  String _upperFirst(String text) =>
-      '${text[0].toUpperCase()}${text.substring(1)}';
 }

@@ -1,6 +1,6 @@
 class Subtask {
   final String title;
-  final bool completed;
+  bool completed;
 
   Subtask({
     required this.title,
@@ -20,4 +20,6 @@ class Subtask {
       'completed': completed,
     };
   }
+
+  void changeCompleted() => completed = !completed;
 }

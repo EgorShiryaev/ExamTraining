@@ -96,7 +96,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
             ),
             CustomTextField(
               controller: descriptionController,
-              label: 'Описание экзамена',
+              label: 'Описание задачи',
               maxLines: 3,
             ),
             ImportanceSelectView(

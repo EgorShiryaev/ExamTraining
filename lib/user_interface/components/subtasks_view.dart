@@ -1,3 +1,4 @@
+
 import 'package:exam_training/user_interface/components/subtask_widget.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/_models.dart';
@@ -40,34 +41,41 @@ class _SubtasksViewState extends State<SubtasksView> {
               style: Theme.of(context).textTheme.caption,
             ),
           ),
+          const SizedBox(height: 5),
           ...List<Widget>.generate(
             widget.subtasks.length,
             (index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: SubtaskWidget(
-                  subtask: widget.subtasks[index ~/ 2],
+                  subtask: widget.subtasks[index],
                   onDelete: widget.delete,
                 ),
               );
             },
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: Row(
               children: [
                 const Icon(Icons.arrow_forward_outlined, size: 18),
-                const SizedBox(width: 10),
+                const SizedBox(width: 15),
                 Expanded(
                   child: TextField(
                     controller: controller,
                     scrollPadding: const EdgeInsets.all(0),
                     onEditingComplete: _onEditingComplete,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(0),
                       border: InputBorder.none,
                       hintText: 'Новая подзадача',
                       hintStyle: Theme.of(context).textTheme.bodyText2,
+                      suffixIcon: GestureDetector(
+                        onTap: _onEditingComplete,
+                        child: const Icon(
+                          Icons.add_rounded,
+                          size: 22,
+                        ),
+                      ),
                     ),
                     style: Theme.of(context).textTheme.overline,
                   ),
@@ -81,7 +89,9 @@ class _SubtasksViewState extends State<SubtasksView> {
   }
 
   _onEditingComplete() {
-    widget.add(controller.text);
-    controller.clear();
+    if (controller.text.isNotEmpty) {
+      widget.add(controller.text);
+      controller.text = '';
+    }
   }
 }

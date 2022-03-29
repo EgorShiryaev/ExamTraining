@@ -7,7 +7,7 @@ class Task {
   final String description;
   final Importance importance;
   final List<Subtask> subtasks;
-  final bool completed;
+  bool completed;
 
   DocumentReference? reference;
 
@@ -50,4 +50,6 @@ class Task {
       'subtasks': subtasks.map((e) => e.toJson()).toList(),
     };
   }
+
+  void changeComplete() => completed = !completed;
 }

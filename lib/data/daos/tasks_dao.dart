@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exam_training/data/daos/_interface_dao.dart';
@@ -29,7 +28,16 @@ class TasksDao implements InterfaceDao<Task> {
 
   @override
   void update(Task task) {
-    log(task.reference.toString());
     _collection.doc(task.reference!.id).set(task.toJson());
+  }
+
+  void updateTaskIsCompleted(Task task) {
+    _collection.doc(task.reference!.id).update({"completed": task.completed});
+  }
+
+  void updateSubtasks(Task task) {
+    _collection
+        .doc(task.reference!.id)
+        .update({"subtasks": task.subtasks.map((e) => e.toJson()).toList()});
   }
 }
