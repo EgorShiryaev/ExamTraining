@@ -23,6 +23,10 @@ class AppTheme {
       foregroundColor: Colors.black,
     ),
     textTheme: TextTheme(
+      headline5: GoogleFonts.roboto(
+        fontSize: 24,
+        color: Colors.black,
+      ),
       headline6: GoogleFonts.roboto(
         fontSize: 24.0,
         color: Colors.black,
