@@ -7,3 +7,4 @@ export 'home_screen.dart';
 export 'tasks_screen.dart';
 export 'tickets_screen.dart';
 export 'profile_screen.dart';
+export 'edit_profile_screen.dart';

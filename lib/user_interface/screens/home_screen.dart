@@ -71,7 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _navigateToEditProfileScreen() {}
+  _navigateToEditProfileScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            EditProfileScreen(),
+      ),
+    );
+  }
 }
 
 final _pages = [
