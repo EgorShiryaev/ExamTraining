@@ -77,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
 final _pages = [
   const ExamsScreen(),
   const TasksScreen(),
-  const Center(child: Text('Профиль')),
+  const ProfileScreen(),
+  
 ];
 
 final navigationBarItems = [

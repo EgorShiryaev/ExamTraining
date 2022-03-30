@@ -6,3 +6,4 @@ export 'exams_screen.dart';
 export 'home_screen.dart';
 export 'tasks_screen.dart';
 export 'tickets_screen.dart';
+export 'profile_screen.dart';
