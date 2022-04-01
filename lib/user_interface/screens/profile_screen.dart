@@ -1,5 +1,5 @@
-import 'package:exam_training/user_interface/components/custom_rounded_button.dart';
 import 'package:flutter/material.dart';
+import '../components/_components.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -29,10 +29,27 @@ class ProfileScreen extends StatelessWidget {
           ),
           CustomRoundedButton(
             text: 'Выйти',
-            onTap: (context) {},
+            onTap: _onExit,
           ),
         ],
       ),
+    );
+  }
+
+  _onExit(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CustomAlertDialog(
+          title: "Вы действительно хотите выйти?",
+          actionTitle: 'Да',
+          actionFunction: () {},
+          actionColor: const Color(0xFFD90030),
+          cancelTitle: 'Нет',
+          cancelColor: Colors.blue,
+          cancelFunction: () {},
+        );
+      },
     );
   }
 }
