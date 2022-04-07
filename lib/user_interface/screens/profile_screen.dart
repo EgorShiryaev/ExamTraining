@@ -1,4 +1,6 @@
+import 'package:exam_training/data/daos/auth_dao.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../components/_components.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -43,11 +45,16 @@ class ProfileScreen extends StatelessWidget {
         return CustomAlertDialog(
           title: "Вы действительно хотите выйти?",
           actionTitle: 'Да',
-          actionFunction: () {},
+          actionFunction: () {
+            Provider.of<AuthDao>(context, listen: false).signOut();
+            Navigator.pop(context);
+          },
           actionColor: const Color(0xFFD90030),
           cancelTitle: 'Нет',
           cancelColor: Colors.blue,
-          cancelFunction: () {},
+          cancelFunction: () {
+            Navigator.pop(context);
+          },
         );
       },
     );

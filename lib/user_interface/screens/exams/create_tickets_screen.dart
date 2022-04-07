@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../data/models/_models.dart';
-import '../components/_components.dart';
+import '../../../data/models/_models.dart';
+import '../../components/_components.dart';
 
 class CreateTicketsScreen extends StatefulWidget {
   final List<ExamTicket> tickets;
