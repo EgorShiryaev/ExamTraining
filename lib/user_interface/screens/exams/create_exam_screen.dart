@@ -2,68 +2,68 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import '../../data/models/_models.dart';
-import '../components/_components.dart';
+import '../../../data/models/_models.dart';
+import '../../components/_components.dart';
 
-class CreateTaskScreen extends StatefulWidget {
-  final Function(Task task) onSave;
-  final Task? task;
+class CreateExamScreen extends StatefulWidget {
+  final Exam? exam;
+  final Function(Exam ex) onSave;
 
-  const CreateTaskScreen({
+  const CreateExamScreen({
     Key? key,
     required this.onSave,
-    this.task,
+    this.exam,
   }) : super(key: key);
 
   @override
-  State<CreateTaskScreen> createState() => _CreateTaskScreenState();
+  State<CreateExamScreen> createState() => _CreateExamScreenState();
 }
 
-class _CreateTaskScreenState extends State<CreateTaskScreen> {
+class _CreateExamScreenState extends State<CreateExamScreen> {
   final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final locationController = TextEditingController();
   DateTime? date;
   TimeOfDay? time;
   Importance selectedImportance = Importance.low;
-  List<Subtask> subtasks = [];
+  List<ExamTicket> examTickets = [];
 
   bool isSaved = false;
   bool dontSaveExam = false;
 
-  String dateText = 'Выбрать дату задачи';
-  String timeText = 'Выбрать время задачи';
+  String dateText = 'Выбрать дату экзамену';
+  String timeText = 'Выбрать время экзамена';
 
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
-    if (widget.task != null) {
-      titleController.text = widget.task!.title;
-      descriptionController.text = widget.task!.description;
-      date = widget.task!.dateTime.toDate();
-      dateText = DateFormat.yMMMMd('ru').format(widget.task!.dateTime.toDate());
+    if (widget.exam != null) {
+      titleController.text = widget.exam!.title;
+      locationController.text = widget.exam!.location;
+      date = widget.exam!.dateTime.toDate();
+      dateText = DateFormat.yMMMMd('ru').format(widget.exam!.dateTime.toDate());
       time = TimeOfDay(
-        hour: widget.task!.dateTime.toDate().hour,
-        minute: widget.task!.dateTime.toDate().minute,
+        hour: widget.exam!.dateTime.toDate().hour,
+        minute: widget.exam!.dateTime.toDate().minute,
       );
       timeText = DateFormat.Hm('ru').format(
         DateTime(
           2022,
           1,
           1,
-          widget.task!.dateTime.toDate().hour,
-          widget.task!.dateTime.toDate().minute,
+          widget.exam!.dateTime.toDate().hour,
+          widget.exam!.dateTime.toDate().minute,
         ),
       );
-      selectedImportance = widget.task!.importance;
-      subtasks.addAll(widget.task!.subtasks);
+      selectedImportance = widget.exam!.importance;
+      examTickets.addAll(widget.exam!.tickets);
     }
   }
 
   @override
   void dispose() async {
     titleController.dispose();
-    descriptionController.dispose();
+    locationController.dispose();
     super.dispose();
   }
 
@@ -76,13 +76,13 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           title: const Text('ExamTraining'),
         ),
         body: ListView(
-          physics: const ClampingScrollPhysics(),
+           physics: const ClampingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(10),
           children: [
             CustomTextField(
               controller: titleController,
-              label: 'Название задачи',
+              label: 'Название экзамена',
             ),
             OutlinedButtonWithIcon(
               icon: Icons.today_rounded,
@@ -95,18 +95,16 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               onTap: _selectTime,
             ),
             CustomTextField(
-              controller: descriptionController,
-              label: 'Описание задачи',
-              maxLines: 3,
+              controller: locationController,
+              label: 'Место экзамена',
             ),
             ImportanceSelectView(
               selectedImportance: selectedImportance,
               setImportance: _selectImportance,
             ),
-            SubtasksView(
-              subtasks: subtasks,
-              add: addSubtask,
-              delete: deleteSubtask,
+            ExamTicketsView(
+              examTickets: examTickets,
+              setTickets: _setExamTickets,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 20,
@@ -122,56 +120,47 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     );
   }
 
-  addSubtask(String title) {
-    subtasks.add(Subtask(title: title, completed: false));
-    setState(() {});
-  }
-
-  deleteSubtask(String title) {
-    subtasks.removeWhere((element) => element.title == title);
-    setState(() {});
-  }
-
   bool _checkNeedSave() {
-    if (widget.task == null) {
+    if (widget.exam == null) {
       if (titleController.text.isNotEmpty ||
-          descriptionController.text.isNotEmpty ||
+          locationController.text.isNotEmpty ||
           date != null ||
           time != null ||
           selectedImportance != Importance.low ||
-          subtasks.isNotEmpty) {
+          examTickets.isNotEmpty) {
         return true;
       }
       return false;
     } else {
-      if (titleController.text != widget.task!.title ||
-          descriptionController.text != widget.task!.description ||
-          date! != widget.task!.dateTime.toDate() ||
-          selectedImportance != widget.task!.importance) {
+      if (titleController.text != widget.exam!.title ||
+          locationController.text != widget.exam!.location ||
+          date! != widget.exam!.dateTime.toDate() ||
+          selectedImportance != widget.exam!.importance) {
         return true;
       }
 
-      final dateTimeInDate = widget.task!.dateTime.toDate();
+      final dateTimeInDate = widget.exam!.dateTime.toDate();
       if (time!.hour != dateTimeInDate.hour ||
           time!.minute != dateTimeInDate.minute) {
         return true;
       }
 
-      if (subtasks.length != widget.task!.subtasks.length) {
+      if (examTickets.length != widget.exam!.tickets.length) {
         return true;
       }
-      bool subtasksIsChanged = false;
-      final startSubTasks = widget.task!.subtasks;
-      for (var i = 0; i < subtasks.length; i++) {
+      bool ticketsIsChanged = false;
+      final startExamTickets = widget.exam!.tickets;
+      for (var i = 0; i < examTickets.length; i++) {
         try {
-          if (subtasks[i].title != startSubTasks[i].title) {
-            subtasksIsChanged = true;
+          if (examTickets[i].answer != startExamTickets[i].answer ||
+              examTickets[i].question != startExamTickets[i].question) {
+            ticketsIsChanged = true;
           }
         } catch (e) {
-          subtasksIsChanged = true;
+          ticketsIsChanged = true;
         }
       }
-      return subtasksIsChanged;
+      return ticketsIsChanged;
     }
   }
 
@@ -198,8 +187,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
 
   _onSave(context) {
     if (_validate()) {
-      final task = Task(
-        completed: widget.task?.completed ?? false,
+      final exam = Exam(
         title: titleController.text,
         dateTime: Timestamp.fromDate(
           DateTime(
@@ -210,13 +198,15 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
             time!.minute,
           ),
         ),
-        description: descriptionController.text,
+        location: locationController.text,
         importance: selectedImportance,
-        subtasks: subtasks,
+        tickets: examTickets,
       );
-      task.reference = widget.task?.reference;
-      widget.onSave(task);
-      setState(() => isSaved = true);
+      exam.reference = widget.exam?.reference;
+      widget.onSave(exam);
+      setState(() {
+        isSaved = true;
+      });
       Navigator.pop(context);
     } else {
       _onWarning();
@@ -227,12 +217,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     final now = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
-      initialDate: date == null ? now : date!,
-      firstDate: now.subtract(const Duration(days: 365)),
-      lastDate: now.add(const Duration(days: 365)),
       cancelText: 'Отмена',
       confirmText: 'Готово',
       helpText: 'Выберите дату',
+      initialDate: date == null ? now : date!,
+      firstDate: now.subtract(const Duration(days: 365)),
+      lastDate: now.add(const Duration(days: 365)),
     );
     if (newDate != null) {
       setState(() {
@@ -264,9 +254,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     setState(() => selectedImportance = newImportance);
   }
 
-  // _setExamTickets(List<ExamTicket> newTickets) {
-  //   setState(() => subtasks = newTickets);
-  // }
+  _setExamTickets(List<ExamTicket> newTickets) {
+    setState(() => examTickets = newTickets);
+  }
 
   Future<bool> _onWillPop() async {
     if (_checkNeedSave()) {
@@ -283,7 +273,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
 
   bool _validate() {
     return titleController.text.isNotEmpty &&
-        descriptionController.text.isNotEmpty &&
+        locationController.text.isNotEmpty &&
         date != null &&
         time != null;
   }
@@ -291,16 +281,16 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   _onWarning() {
     List<String> errors = [];
     if (titleController.text.isEmpty) {
-      errors.add('"Название задачи"');
-    }
-    if (descriptionController.text.isEmpty) {
-      errors.add('"Описание задачи"');
+      errors.add('"Название экзамена"');
     }
     if (date == null) {
-      errors.add('"Дата задачи"');
+      errors.add('"Дата экзамена"');
     }
     if (time == null) {
-      errors.add('"Время задачи"');
+      errors.add('"Время экзамена"');
+    }
+    if (locationController.text.isEmpty) {
+      errors.add('"Место экзамена"');
     }
 
     if (errors.isNotEmpty) {

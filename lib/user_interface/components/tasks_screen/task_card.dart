@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../data/models/_models.dart';
 import '../../../utils/get_color_for_importance.dart';
 import '../../../utils/upper_first.dart';
-import '../../screens/create_task_screen.dart';
+import '../../screens/tasks/create_task_screen.dart';
 import '../_components.dart';
 
 class TaskCard extends StatefulWidget {
