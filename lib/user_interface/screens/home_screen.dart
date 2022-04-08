@@ -28,10 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(
                 _currentIndex == 2 ? Icons.edit_rounded : Icons.add_rounded),
             onPressed: _currentIndex == 2
-                ? _navigateToEditProfileScreen
+                ? () => _navigateToEditProfileScreen(context)
                 : _currentIndex == 0
-                    ? _navigateToCreateExamScreen
-                    : _navigateCreateTaskScreen,
+                    ? () => _navigateToCreateExamScreen(context)
+                    : () => _navigateCreateTaskScreen(context),
           )
         ],
       ),
@@ -51,32 +51,31 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _navigateToCreateExamScreen() {
+  _navigateToCreateExamScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
+        builder: (_) =>
             CreateExamScreen(onSave: Provider.of<ExamsDao>(context).add),
       ),
     );
   }
 
-  _navigateCreateTaskScreen() {
+  _navigateCreateTaskScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
+        builder: (_) =>
             CreateTaskScreen(onSave: Provider.of<TasksDao>(context).add),
       ),
     );
   }
 
-  _navigateToEditProfileScreen() {
+  _navigateToEditProfileScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            EditProfileScreen(),
+        builder: (_) => EditProfileScreen(),
       ),
     );
   }
@@ -86,7 +85,6 @@ final _pages = [
   const ExamsScreen(),
   const TasksScreen(),
   const ProfileScreen(),
-  
 ];
 
 final navigationBarItems = [
