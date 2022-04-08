@@ -7,6 +7,7 @@ class Exam {
   final String location;
   final Importance importance;
   final List<ExamTicket> tickets;
+  String userId;
 
   DocumentReference? reference;
 
@@ -16,6 +17,7 @@ class Exam {
     required this.location,
     required this.importance,
     required this.tickets,
+    this.userId = 'null',
     this.reference,
   });
 
@@ -25,6 +27,7 @@ class Exam {
       dateTime: json['dateTime'],
       location: json['location'],
       importance: Importance.values[json['importance']],
+      userId: json['userId'],
       tickets: (json['tickets'] as List<dynamic>)
           .map((v) => ExamTicket.fromJson(v))
           .toList(),
@@ -38,6 +41,7 @@ class Exam {
       'location': location,
       'importance': importance.index,
       'tickets': tickets.map((e) => e.toJson()).toList(),
+      'userId': userId
     };
   }
 
@@ -47,4 +51,3 @@ class Exam {
     return exam;
   }
 }
-

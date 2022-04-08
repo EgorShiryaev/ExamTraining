@@ -8,6 +8,7 @@ class Task {
   final Importance importance;
   final List<Subtask> subtasks;
   bool completed;
+  String userId;
 
   DocumentReference? reference;
 
@@ -18,6 +19,7 @@ class Task {
     required this.importance,
     required this.subtasks,
     required this.completed,
+    this.userId = 'null',
     this.reference,
   });
 
@@ -28,6 +30,7 @@ class Task {
       description: json['description'],
       completed: json['completed'],
       importance: Importance.values[json['importance']],
+      userId: json['userId'],
       subtasks: (json['subtasks'] as List<dynamic>)
           .map((e) => Subtask.fromJson(e))
           .toList(),
@@ -48,6 +51,7 @@ class Task {
       'completed': completed,
       'importance': importance.index,
       'subtasks': subtasks.map((e) => e.toJson()).toList(),
+      'userId': userId,
     };
   }
 
