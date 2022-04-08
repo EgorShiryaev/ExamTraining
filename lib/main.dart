@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:exam_training/data/daos/_daos.dart';
 import 'package:exam_training/app_theme.dart';
 import 'package:exam_training/data/daos/auth_dao.dart';
+import 'package:exam_training/data/daos/user_dao.dart';
 import 'package:exam_training/user_interface/screens/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,18 +33,25 @@ class ExamTrainingApp extends StatelessWidget {
           return StreamBuilder(
             stream: Provider.of<AuthDao>(ctx, listen: false).authChanges,
             builder: (context, snapshot) {
-              log(snapshot.data.toString());
               if (snapshot.data != null) {
-                return MultiProvider(providers: [
-                  Provider<ExamsDao>(
-                    lazy: true,
-                    create: (_) => ExamsDao(user: snapshot.data as User),
-                  ),
-                  Provider<TasksDao>(
-                    lazy: true,
-                    create: (_) => TasksDao(user: snapshot.data as User),
-                  ),
-                ], child: const HomeScreen());
+                return MultiProvider(
+                    providers: [
+                      Provider<ExamsDao>(
+                        lazy: true,
+                        create: (_) => ExamsDao(user: snapshot.data as User),
+                      ),
+                      Provider<TasksDao>(
+                        lazy: true,
+                        create: (_) => TasksDao(user: snapshot.data as User),
+                      ),
+                      Provider<UserDao>(
+                        lazy: true,
+                        create: (_) => UserDao(),
+                      ),
+                    ],
+                    child: HomeScreen(
+                      user: snapshot.data as User,
+                    ));
               } else {
                 return const AuthScreen();
               }

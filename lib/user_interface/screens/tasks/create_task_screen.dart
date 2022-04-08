@@ -215,6 +215,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         subtasks: subtasks,
       );
       task.reference = widget.task?.reference;
+      task.userId = widget.task?.userId ?? '';
       widget.onSave(task);
       setState(() => isSaved = true);
       Navigator.pop(context);

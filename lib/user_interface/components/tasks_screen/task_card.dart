@@ -155,7 +155,7 @@ class _TaskCardState extends State<TaskCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CreateTaskScreen(
+        builder: (_) => CreateTaskScreen(
           onSave: Provider.of<TasksDao>(context).update,
           task: widget.task,
         ),

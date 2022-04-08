@@ -1,31 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserDao {
-  final _user = FirebaseAuth.instance.currentUser;
+  final _auth = FirebaseAuth.instance;
 
-  User? get user => _user;
+  Stream get user => _auth.userChanges();
 
   Future<void> updateDisplayName(String newName) async {
-    await _user?.updateDisplayName(newName);
+    await _auth.currentUser?.updateDisplayName(newName);
   }
 
   Future<void> updateEmail(String newEmail) async {
-    await _user?.updateEmail(newEmail);
+    await _auth.currentUser?.updateEmail(newEmail);
   }
 
   Future<void> sendEmailVerification() async {
-    await _user?.sendEmailVerification();
+    await _auth.currentUser?.sendEmailVerification();
   }
 
   Future<void> updatePassword(String newPassword) async {
-    await _user?.updatePassword(newPassword);
+    await _auth.currentUser?.updatePassword(newPassword);
   }
 
   Future<void> deleteUser() async {
-    await _user?.delete();
+    await _auth.currentUser?.delete();
   }
 
   Future<void> reAuth(AuthCredential credential) async {
-    await user?.reauthenticateWithCredential(credential);
+    await _auth.currentUser?.reauthenticateWithCredential(credential);
   }
 }

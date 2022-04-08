@@ -1,11 +1,13 @@
 import 'package:exam_training/data/daos/exams_dao.dart';
 import 'package:exam_training/data/daos/tasks_dao.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '_screens.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final User user;
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -75,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => EditProfileScreen(),
+        builder: (_) => EditProfileScreen(
+          user: widget.user,
+        ),
       ),
     );
   }
