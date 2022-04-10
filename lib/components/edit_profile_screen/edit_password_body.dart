@@ -1,11 +1,8 @@
-import 'package:exam_training/components/_components.dart';
-import 'package:exam_training/components/custom_rounded_button.dart';
-import 'package:exam_training/components/custom_text_field.dart';
-import 'package:exam_training/daos/auth_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../custom_alert_dialog.dart';
+import '../../daos/_daos.dart';
+import '../_components.dart';
 
 class EditPasswordBody extends StatefulWidget {
   final String? email;

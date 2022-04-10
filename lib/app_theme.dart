@@ -17,10 +17,14 @@ class AppTheme {
     ),
     primaryColor: Colors.black,
     scaffoldBackgroundColor: const Color(0xFFF5F5F5),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       centerTitle: true,
       color: Colors.white,
       foregroundColor: Colors.black,
+      titleTextStyle: GoogleFonts.roboto(
+        fontSize: 24,
+        color: Colors.black,
+      ),
     ),
     textTheme: TextTheme(
       headline5: GoogleFonts.roboto(
@@ -48,6 +52,10 @@ class AppTheme {
       bodyText2: GoogleFonts.roboto(
         color: Colors.grey,
         fontSize: 18,
+      ),
+      headline4: GoogleFonts.roboto(
+        fontSize: 20,
+        color: Colors.black,
       ),
     ),
     splashColor: Colors.white,

@@ -1,7 +1,8 @@
-import 'package:exam_training/daos/auth_dao.dart';
-import 'package:exam_training/components/_components.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../components/_components.dart';
+import '../../daos/_daos.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);

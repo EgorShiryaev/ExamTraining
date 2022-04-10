@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/_models.dart';
+import '../models/_models.dart';
 
 class ImportanceSelectView extends StatelessWidget {
   final Importance selectedImportance;

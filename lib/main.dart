@@ -1,7 +1,5 @@
 import 'package:exam_training/daos/_daos.dart';
 import 'package:exam_training/app_theme.dart';
-import 'package:exam_training/daos/auth_dao.dart';
-import 'package:exam_training/screens/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,6 @@
-import 'package:exam_training/screens/auth/registration_screen.dart';
-import 'package:exam_training/screens/auth/sign_in_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../components/_components.dart';
+import '../_screens.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);

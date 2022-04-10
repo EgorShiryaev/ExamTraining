@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exam_training/daos/exams_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../models/_models.dart';
 import '../../components/_components.dart';
+import '../../daos/_daos.dart';
+import '../../models/_models.dart';
 
 class ExamsScreen extends StatelessWidget {
   const ExamsScreen({Key? key}) : super(key: key);

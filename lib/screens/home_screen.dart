@@ -1,12 +1,9 @@
-import 'dart:io';
-import 'package:exam_training/daos/exams_dao.dart';
-import 'package:exam_training/daos/tasks_dao.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import '../components/actions_modal_sheet.dart';
+import '../daos/_daos.dart';
 import '_screens.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,7 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ExamTraining'),
+        title: const Text(
+          'ExamTraining',
+        ),
         actions: [
           IconButton(
             icon: Icon(

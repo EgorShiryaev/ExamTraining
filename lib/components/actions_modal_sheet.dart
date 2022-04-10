@@ -1,11 +1,11 @@
-import 'package:exam_training/models/edit_profile_mode.dart';
-import 'package:exam_training/screens/profile/edit_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../daos/auth_dao.dart';
-import 'custom_alert_dialog.dart';
+import '../models/_models.dart';
+import '../screens/_screens.dart';
+import '_components.dart';
 
 class ActionsModalSheet extends StatefulWidget {
   const ActionsModalSheet({Key? key}) : super(key: key);
@@ -31,21 +31,31 @@ class _ActionsModalSheetState extends State<ActionsModalSheet> {
             user.displayName != null
                 ? 'Изменить имя пользователя'
                 : 'Указать имя пользователя',
+            style: Theme.of(context).textTheme.headline4,
           ),
           onPressed: _editUsername,
         ),
         CupertinoActionSheetAction(
-          child: const Text('Изменить email'),
+          child: Text(
+            'Изменить email',
+            style: Theme.of(context).textTheme.headline4,
+          ),
           onPressed: _editEmail,
         ),
         CupertinoActionSheetAction(
-          child: const Text('Изменить пароль'),
+          child: Text(
+            'Изменить пароль',
+            style: Theme.of(context).textTheme.headline4,
+          ),
           onPressed: _editPassword,
         ),
         CupertinoActionSheetAction(
-          child: const Text(
+          child: Text(
             'Удалить аккаунт',
-            style: TextStyle(color: Colors.red),
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: Colors.red),
           ),
           onPressed: _onDelete,
         ),

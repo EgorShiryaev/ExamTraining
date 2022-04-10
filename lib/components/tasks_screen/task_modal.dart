@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../../../models/_models.dart';
+import '../../models/_models.dart';
 import '../../../utils/upper_first.dart';
 
 class TaskModal extends StatefulWidget {

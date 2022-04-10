@@ -1,14 +1,12 @@
-import 'package:exam_training/daos/tasks_dao.dart';
-import 'package:exam_training/components/tasks_screen/task_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import '../../../models/_models.dart';
-import '../../../utils/get_color_for_importance.dart';
-import '../../../utils/upper_first.dart';
+import '../../models/_models.dart';
+import '../../daos/_daos.dart';
 import '../../screens/tasks/create_task_screen.dart';
+import '../../utils/_utils.dart';
 import '../_components.dart';
 
 class TaskCard extends StatefulWidget {
@@ -156,7 +154,7 @@ class _TaskCardState extends State<TaskCard> {
       context,
       MaterialPageRoute(
         builder: (_) => CreateTaskScreen(
-          onSave: Provider.of<TasksDao>(context,listen: false).update,
+          onSave: Provider.of<TasksDao>(context, listen: false).update,
           task: widget.task,
         ),
       ),
