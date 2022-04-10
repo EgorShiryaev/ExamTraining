@@ -26,7 +26,6 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           label: Text(
             label,
-            style: Theme.of(context).textTheme.headline4,
           ),
           labelStyle: Theme.of(context).textTheme.caption,
           contentPadding: const EdgeInsets.all(15),

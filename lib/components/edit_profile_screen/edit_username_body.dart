@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../daos/_daos.dart';
 import '../_components.dart';
 
-
 class EditUsernameBody extends StatefulWidget {
   final String? username;
   const EditUsernameBody({
@@ -59,7 +58,7 @@ class _EditUsernameBodyState extends State<EditUsernameBody> {
     if (username.isEmpty) {
       errors.add('Имя пользователя должно быть заполнено');
     } else if (username.length < 8) {
-      errors.add('Имя пользователя должно быть заполнено');
+      errors.add('Имя пользователя должно быть не меньше 8 сиволов');
     }
     if (username.trim().isEmpty) {
       errors.add('Имя пользователя не может состоять из пробелов');
