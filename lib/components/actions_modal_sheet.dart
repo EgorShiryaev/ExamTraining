@@ -31,21 +31,31 @@ class _ActionsModalSheetState extends State<ActionsModalSheet> {
             user.displayName != null
                 ? 'Изменить имя пользователя'
                 : 'Указать имя пользователя',
+            style: Theme.of(context).textTheme.headline4,
           ),
           onPressed: _editUsername,
         ),
         CupertinoActionSheetAction(
-          child: const Text('Изменить email'),
+          child: Text(
+            'Изменить email',
+            style: Theme.of(context).textTheme.headline4,
+          ),
           onPressed: _editEmail,
         ),
         CupertinoActionSheetAction(
-          child: const Text('Изменить пароль'),
+          child: Text(
+            'Изменить пароль',
+            style: Theme.of(context).textTheme.headline4,
+          ),
           onPressed: _editPassword,
         ),
         CupertinoActionSheetAction(
-          child: const Text(
+          child: Text(
             'Удалить аккаунт',
-            style: TextStyle(color: Colors.red),
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: Colors.red),
           ),
           onPressed: _onDelete,
         ),

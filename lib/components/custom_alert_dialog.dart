@@ -56,6 +56,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
       title: Text(
         widget.title,
         textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headline4,
       ),
       titleTextStyle: Theme.of(context).textTheme.overline,
       contentPadding:
