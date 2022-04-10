@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../daos/auth_dao.dart';
-import '../../components/custom_alert_dialog.dart';
-import '../../components/custom_rounded_button.dart';
-import '../../components/custom_text_field.dart';
-import '../../components/password_text_field.dart';
+import '../../components/_components.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);

@@ -30,7 +30,7 @@ class AuthDao {
             'Пользователь ${credential.additionalUserInfo?.username} успешно создан',
       );
     } on FirebaseAuthException catch (e) {
-      late final message;
+      late final String message;
       switch (e.code) {
         case 'invalid-email':
           message = 'Данный email недействителен';
@@ -73,7 +73,7 @@ class AuthDao {
             'Пользователь ${credential.additionalUserInfo?.username} успешно авторизован',
       );
     } on FirebaseAuthException catch (e) {
-      late final message;
+      late final String message;
       switch (e.code) {
         case 'invalid-email':
           message = 'Данный email недействителен';
@@ -118,7 +118,7 @@ class AuthDao {
         message: 'Адрес электронной почты успешно изменён',
       );
     } on FirebaseAuthException catch (e) {
-      final message;
+      final String message;
       switch (e.code) {
         case 'invalid-email':
           message = 'Данный email недействителен';
@@ -150,7 +150,7 @@ class AuthDao {
         message: 'Пароль успешно изменён',
       );
     } on FirebaseAuthException catch (e) {
-      final message;
+      final String message;
       switch (e.code) {
         case 'weak-password':
           message = 'Данный пароль слишком слабый';
@@ -179,7 +179,7 @@ class AuthDao {
         message: 'Пользователь успешно удалён',
       );
     } on FirebaseAuthException catch (e) {
-      final message;
+      final String message;
       switch (e.code) {
         case requiresRecentLogin:
           message = 'Для выполнения дествия требуется переавторизация';

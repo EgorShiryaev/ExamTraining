@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import '../../../models/_models.dart';
 import '../../components/_components.dart';
+import '../../models/_models.dart';
 
 class CreateExamScreen extends StatefulWidget {
   final Exam? exam;

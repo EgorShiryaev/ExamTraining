@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../models/_models.dart';
 import '../../components/_components.dart';
+import '../../models/_models.dart';
 
 class AnswerScreen extends StatefulWidget {
   final ExamTicket ticket;

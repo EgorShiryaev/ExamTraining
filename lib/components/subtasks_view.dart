@@ -1,6 +1,6 @@
 import 'package:exam_training/components/subtask_widget.dart';
 import 'package:flutter/material.dart';
-import '../../models/_models.dart';
+import '../models/_models.dart';
 import '_components.dart';
 
 class SubtasksView extends StatefulWidget {

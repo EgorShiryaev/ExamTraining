@@ -1,11 +1,11 @@
-import 'package:exam_training/models/edit_profile_mode.dart';
-import 'package:exam_training/screens/profile/edit_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../daos/auth_dao.dart';
-import 'custom_alert_dialog.dart';
+import '../models/_models.dart';
+import '../screens/_screens.dart';
+import '_components.dart';
 
 class ActionsModalSheet extends StatefulWidget {
   const ActionsModalSheet({Key? key}) : super(key: key);

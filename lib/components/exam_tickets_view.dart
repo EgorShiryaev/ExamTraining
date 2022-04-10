@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/_models.dart';
+import '../models/_models.dart';
 import '../screens/_screens.dart';
 import '_components.dart';
 
