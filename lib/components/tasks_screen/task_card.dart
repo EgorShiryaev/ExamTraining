@@ -166,7 +166,7 @@ class _TaskCardState extends State<TaskCard> {
       context: context,
       builder: (context) {
         return CustomAlertDialog(
-          title: "Вы действительно хотите удалить экзамен?",
+          title: "Вы действительно хотите удалить задачу?",
           actionTitle: 'Да',
           actionFunction: _onDeleteModal,
           actionColor: const Color(0xFFD90030),
