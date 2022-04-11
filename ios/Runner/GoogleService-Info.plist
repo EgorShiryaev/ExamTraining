@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>117096685903-85ehttd7vnljr0s15umrav8h916ot07u.apps.googleusercontent.com</string>
+	<string>117096685903-54fhnitcuf41l7dm2utv6n19in2g9pg6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.117096685903-85ehttd7vnljr0s15umrav8h916ot07u</string>
+	<string>com.googleusercontent.apps.117096685903-54fhnitcuf41l7dm2utv6n19in2g9pg6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>117096685903-qj8bvd0ub3ej63ve5afrh2ehogsclmg1.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDM1RcVqaoCGbmI7ZirTM08FIjMNxPtH_g</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.vyatsu.examTraining</string>
+	<string>com.example.examTraining</string>
 	<key>PROJECT_ID</key>
 	<string>examtraining-73c9b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:117096685903:ios:0fe04b96dfbf80e76de53a</string>
+	<string>1:117096685903:ios:429b78c4499b90536de53a</string>
 </dict>
 </plist>
