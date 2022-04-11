@@ -38,8 +38,7 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  branding: assets/app_icon.png
-  # branding_mode: center
+  image: assets/app_icon.png
 
 flutter:
   uses-material-design: true
