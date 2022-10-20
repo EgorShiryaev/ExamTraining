@@ -31,13 +31,27 @@ Firebase Firestore и Firebase Authentication.
 
 # Скрины
 
-![StartPage](https://user-images.githubusercontent.com/80877621/196906836-508a7c3f-31bb-47fd-9f28-75454b5b8e54.png)
-![LoginPage](https://user-images.githubusercontent.com/80877621/196906727-1331c3b9-f685-4e6f-bd33-6e00a77c713c.png)
-![ExamsPage](https://user-images.githubusercontent.com/80877621/196906794-5b8a1488-2592-4677-ae59-c39783a42f1f.png)
-![AddExamPage](https://user-images.githubusercontent.com/80877621/196906987-e7c1258f-b1ce-4cf6-b5aa-1c65f24eaff5.png)
-![ExamQuationsPage](https://user-images.githubusercontent.com/80877621/196907078-31f32d51-e6cb-4682-82f5-a0cb01de0b23.png)
-![TasksPage](https://user-images.githubusercontent.com/80877621/196906897-1d58f647-13a2-49db-9c6e-534fedba380b.png)
-![AddTaskPage](https://user-images.githubusercontent.com/80877621/196907247-ac00da62-745d-464e-867c-08cf31bc4dee.png)
-![TaskInfoPage](https://user-images.githubusercontent.com/80877621/196907127-a7efff76-bf97-497a-9d61-d3280298aae1.png)
-![ProfilePage](https://user-images.githubusercontent.com/80877621/196907154-27dff095-3a8a-4f51-9806-65af2c92a336.png)
-![ProfileOptionsPage](https://user-images.githubusercontent.com/80877621/196907196-b21eb25b-3540-4fba-b23a-482647a9756c.png)
+![StartPage](https://user-images.githubusercontent.com/80877621/196911232-4f8e5c8a-2777-4960-92f7-0399a1f4fff4.png)
+![LoginPage](https://user-images.githubusercontent.com/80877621/196911224-cebf0531-cb96-4928-8835-f4298f079a56.png)
+
+![ExamsPage](https://user-images.githubusercontent.com/80877621/196911219-655b254f-00c9-4463-9ef8-606f60ad0a67.png)
+![AddExamPage](https://user-images.githubusercontent.com/80877621/196911206-6fd9b4a4-2b79-4d0f-9678-60676b0ca56f.png)
+
+![EditExamPage](https://user-images.githubusercontent.com/80877621/196911213-f270c883-d4b0-4def-b8ad-ea3534175e09.png)
+![EditExamTicketsPage](https://user-images.githubusercontent.com/80877621/196911215-354bc019-9a68-4b88-8e53-9152b953e106.png)
+
+![ExamTicketsPage](https://user-images.githubusercontent.com/80877621/196911222-b76ff9d9-ffb4-4a15-a66c-8da4d8f0388d.png)
+![TasksPage](https://user-images.githubusercontent.com/80877621/196911239-438e9aca-0a9f-4b6d-985b-c0b96f5cfa19.png)
+
+![AddTaskPage](https://user-images.githubusercontent.com/80877621/196911209-fdcb6d5a-2552-489c-89c7-6aecf11a5f18.png)
+![EditTaskPage](https://user-images.githubusercontent.com/80877621/196911217-473bcf68-5808-464f-8cf9-37ed3505ca0d.png)
+
+![TaskInfoPage](https://user-images.githubusercontent.com/80877621/196911235-3dee49b7-130d-4db6-a4f9-0701df6b70ea.png)
+![ProfilePage](https://user-images.githubusercontent.com/80877621/196911229-8a23db45-3f86-43b7-aa5d-a0bc561593b5.png)
+
+![ProfileOptionsPage](https://user-images.githubusercontent.com/80877621/196911226-5c9cfdf1-1362-4151-9f98-793039e978c9.png)
+
+
+
+
+
