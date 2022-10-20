@@ -19,7 +19,7 @@ Firebase Firestore и Firebase Authentication.
 
 # Макеты
 
-- ![Figma](https://www.figma.com/file/03nPa3j1q3NI5z1vponAlB/ExamTraining?node-id=0%3A1)
+- [Figma](https://www.figma.com/file/03nPa3j1q3NI5z1vponAlB/ExamTraining?node-id=0%3A1)
 
 # Сборка и тестирование
 
