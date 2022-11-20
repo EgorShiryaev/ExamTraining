@@ -4,7 +4,7 @@
 
 Мобильное приложение было разработанно в рамках Учебной практики.
 
-Apk файл можно скачать [тут](https://github.com/EgorShiryaev/ExamTraining/releases)
+Apk файл можно скачать [тут](https://github.com/EgorShiryaev/ExamTraining/releases).
 
 ## Начало работы
 
@@ -43,7 +43,7 @@ flutter run
 
 Базой данных является [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore).
 
-Сервисом авторизации - [Firebase Authentication](https://firebase.google.com/docs/auth)
+Сервисом авторизации - [Firebase Authentication](https://firebase.google.com/docs/auth).
 
 ## Скрины
 
