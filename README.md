@@ -1,35 +1,51 @@
-# Введение
+# ExamTraining
 
-Цель проекта: Разработать мобильное приложение, для хранения информации об экзаменах и задачах.
+Мобильное приложение для хранения информации об экзаменах и задачах.
 
-ExamTraining - мобильное приложение, разработанное с помощью фреймворка Flutter, с использованием сервисов:
-Firebase Firestore и Firebase Authentication.
+Мобильное приложение было разработанно в рамках Учебной практики.
 
-Задачи проекта:
+Apk файл можно скачать [тут](https://github.com/EgorShiryaev/ExamTraining/releases)
 
-1. Изучить фреймворк Flutter
-2. Изучить работу с сервисами Firebase Firestore и Firebase Authentication
-3. Разработать мобильное приложение за 12 недель
+## Начало работы
 
-# Начало работы
+Перед запуском приложения необходимо установить все программное обеспечение перечисленное в разделе "Необходимое ПО". 
 
-Для работы в приложении зарегистрироваться по адресу электронной почты и паролю.
-В приложении при первом запуске нажмите на кнопку зарегистрироваться и введите данные.
-В последующей работе для авторизации используйте кнопку Войти
+Только после того как у вас установлено всё ПО, вы можете переходить к разделу "Запуск приложения".
 
-# Макеты
+### Необходимое ПО
 
-- [Figma](https://www.figma.com/file/03nPa3j1q3NI5z1vponAlB/ExamTraining?node-id=0%3A1)
+- [flutter 2.10.4](https://docs.flutter.dev/development/tools/sdk/releases)
+- [Xcode](https://apps.apple.com/ru/app/xcode/id497799835?mt=12)
+- [Android Studio](https://developer.android.com/studio)
+- [Visual Studio Code](https://code.visualstudio.com/)
 
-# Сборка и тестирование
+После того как скачается flutter, следуйте этим [инструкциям](https://docs.flutter.dev/get-started/install).
 
-Для сборки приложения необходимо установить
+Для настройки редактора кода, следуйте этим [инструкциям](https://docs.flutter.dev/get-started/editor?tab=vscode).
 
-1. Flutter 2.10.4 и более поздние версии
-2. VSCode или Android Studio
-3. В выбранном IDE установить расширение Flutter
+### Запуск приложения
 
-# Скрины
+Откройте проект в редакторе кода. Запустите терминал в папке проекта. Затем установите все необходимые пакеты командой:
+
+```
+flutter pub get
+```
+
+После успешной загрузки пакетов запустите эмулятор и напишите команду в терминал:
+
+```
+flutter run
+```
+
+Подробнее о запуске приложения flutter можно узнать [тут](https://docs.flutter.dev/get-started/test-drive?tab=vscode).
+
+## Разработка
+
+Базой данных является [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore).
+
+Сервисом авторизации - [Firebase Authentication](https://firebase.google.com/docs/auth)
+
+## Скрины
 
 ![StartPage](https://user-images.githubusercontent.com/80877621/196911232-4f8e5c8a-2777-4960-92f7-0399a1f4fff4.png)
 ![LoginPage](https://user-images.githubusercontent.com/80877621/196911224-cebf0531-cb96-4928-8835-f4298f079a56.png)
@@ -50,8 +66,3 @@ Firebase Firestore и Firebase Authentication.
 ![ProfilePage](https://user-images.githubusercontent.com/80877621/196911229-8a23db45-3f86-43b7-aa5d-a0bc561593b5.png)
 
 ![ProfileOptionsPage](https://user-images.githubusercontent.com/80877621/196911226-5c9cfdf1-1362-4151-9f98-793039e978c9.png)
-
-
-
-
-
